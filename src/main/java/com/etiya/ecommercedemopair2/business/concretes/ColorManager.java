@@ -24,4 +24,9 @@ public class ColorManager implements ColorService {
                 new AddColorResponse(savedColor.getId(),savedColor.getName());
         return response;
     }
+
+    @Override
+    public Color getById(int id) {
+        return colorRepository.findById(id).orElseThrow();
+    }
 }

@@ -23,4 +23,9 @@ public class RoleManager implements RoleService {
                 new AddRoleResponse(savedRole.getId(),savedRole.getRole_name());
         return response;
     }
+
+    @Override
+    public Role getById(int id) {
+        return this.roleRepository.findById(id).orElseThrow();
+    }
 }

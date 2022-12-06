@@ -1,12 +1,13 @@
 package com.etiya.ecommercedemopair2.api.controllers;
 
 import com.etiya.ecommercedemopair2.business.abstracts.UserService;
+import com.etiya.ecommercedemopair2.business.dtos.request.user.AddUserRequest;
+import com.etiya.ecommercedemopair2.business.dtos.response.user.AddUserResponse;
 import com.etiya.ecommercedemopair2.entities.concretes.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,19 +22,22 @@ public class UserController {
         this.userService=userService;
     }
 
-    @GetMapping("/getUserAll")
-    public List<User> getAll(){
-        return this.userService.getAll();
+//    @GetMapping("/getUserAll")
+//    public List<User> getAll(){
+//        return this.userService.getAll();
+//    }
+//
+//    @GetMapping("/getByUserId")
+//    public User getById(@RequestParam int id){
+//        return this.userService.getById(id);
+//    }
+//
+//    @GetMapping("getByFirstName")
+//    public User getByFirstName(@RequestParam("name") String name){
+//        return userService.getByFirst_name(name);
+//    }
+    @PostMapping("/add")
+    public ResponseEntity<AddUserResponse> addUser(@RequestBody AddUserRequest addUserRequest) {
+        return new ResponseEntity<AddUserResponse>(userService.addUser(addUserRequest), HttpStatus.CREATED);
     }
-
-    @GetMapping("/getByUserId")
-    public User getById(@RequestParam int id){
-        return this.userService.getById(id);
-    }
-
-    @GetMapping("getUserFirstName")
-    public User getByName(@RequestParam("first_name") String first_name){
-        return  userService.getByName(first_name);
-    }
-
 }

@@ -34,5 +34,10 @@ public class CountryManager implements CountryService {
 
     }
 
+    @Override
+    public Country getById(int id) {
+        return this.countryRepository.findById(id).orElseThrow();
+    }
+
 
 }

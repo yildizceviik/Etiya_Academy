@@ -21,7 +21,8 @@ public class CityManager implements CityService {
     public AddCityResponse addCity(AddCityRequest addCityRequest) {
         City city = new City();
         city.setCity_name(addCityRequest.getCity_name());
-        District district= districtService.getById(addCityRequest.getDistrict_id());
+        District district=
+                districtService.getById(addCityRequest.getDistrict_id());
 
         city.setDistrict(district);
         City savedCity = cityRepository.save(city);
@@ -33,6 +34,7 @@ public class CityManager implements CityService {
 
     @Override
     public City getById(int id) {
+
         return cityRepository.findById(id).orElseThrow();
     }
 }

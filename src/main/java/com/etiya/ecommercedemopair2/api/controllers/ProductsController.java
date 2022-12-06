@@ -1,10 +1,15 @@
 package com.etiya.ecommercedemopair2.api.controllers;
 
 import com.etiya.ecommercedemopair2.business.abstracts.ProductService;
+import com.etiya.ecommercedemopair2.business.dtos.request.product.AddProductRequest;
+import com.etiya.ecommercedemopair2.business.dtos.response.product.AddProductResponse;
 import com.etiya.ecommercedemopair2.entities.concretes.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -41,4 +46,8 @@ public class ProductsController {
 //
 //        return productService.getByName(name);
 //    }
+    @PostMapping("/add")
+    public ResponseEntity<AddProductResponse>addProduct (@RequestBody @Valid AddProductRequest addProductRequest){
+        return new ResponseEntity<AddProductResponse>(productService.addProduct(addProductRequest), HttpStatus.CREATED);
+    }
 }

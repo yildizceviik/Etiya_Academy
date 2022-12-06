@@ -46,16 +46,28 @@ public class CategoryManager implements CategoryService {
     //JPA Repository Save methodu, eklenen veriyi geri döner
     @Override
     public AddCategoryResponse addCategory(AddCategoryRequest addCategoryRequest) {
+
         //MAPPING=> Auto mapper
         Category category = new Category();
+
+        categoryCanNotExistWithSameName(addCategoryRequest.getName());
+
         category.setName(addCategoryRequest.getName());
         //
-        Category savedCategory =categoryRepository.save(category);
+        Category savedCategory = categoryRepository.save(category);
 
         //MAPPING=> Category = addcategoryresponse
-        AddCategoryResponse response=
-                new AddCategoryResponse(savedCategory.getId(),savedCategory.getName());
+        AddCategoryResponse response =
+                new AddCategoryResponse(savedCategory.getId(), savedCategory.getName());
 
         return response;
     }
+    private void categoryCanNotExistWithSameName(String name){
+
+        boolean isExists = categoryRepository.existsCategoryByName(name);
+        if(isExists) // Veritabanımda bu isimde bir kategori mevcut!!
+
+            throw new RuntimeException("Bu isimle bir kategori zaten mevcut!");
+    }
+
 }

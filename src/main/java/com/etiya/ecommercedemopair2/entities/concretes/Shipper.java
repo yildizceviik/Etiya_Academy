@@ -26,7 +26,7 @@ public class Shipper {
     private String company_name;
 
     @Column(name = "phone_number")
-    private Character phone_number;
+    private String phone_number;
 
     @ManyToOne
     @JoinColumn(name = "role_id")
