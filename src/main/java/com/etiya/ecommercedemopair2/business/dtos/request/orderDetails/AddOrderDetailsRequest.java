@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddOrderDetailsRequest {
-    private int order_id;
-    private int product_id;
+    private int orderId;
+    private int productId;
     private double total;
     private String coupon;
 }

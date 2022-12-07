@@ -24,7 +24,8 @@ public class AddProductRequest {
     @Min(value = 0,message = "Stok sayısı en az 0 olmalıdır.")
     private int stock;
     @Min(value = 0,message = "Id sıfırdan küçük olamaz.")
-    private int category_id;
-    private int color_id;
+
+    private int categoryId;
+    private int colorId;
     private int sale_count;
 }

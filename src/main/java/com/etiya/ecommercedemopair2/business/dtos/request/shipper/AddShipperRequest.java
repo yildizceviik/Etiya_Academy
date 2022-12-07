@@ -12,5 +12,5 @@ import lombok.Setter;
 public class AddShipperRequest {
     private String company_name;
     private String phone_number;
-    private int role_id;
+    private int roleId;
 }

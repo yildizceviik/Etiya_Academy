@@ -4,6 +4,7 @@ import com.etiya.ecommercedemopair2.business.abstracts.PaymentMethodService;
 import com.etiya.ecommercedemopair2.business.dtos.request.paymentmethod.AddPaymentMethodRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.paymentmethod.AddPaymentMethodResponse;
 
+import com.etiya.ecommercedemopair2.core.util.mapping.ModelMapperService;
 import com.etiya.ecommercedemopair2.entities.concretes.PaymenMethod;
 import com.etiya.ecommercedemopair2.repository.abstracts.PaymentMethodRepository;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.List;
 public class PaymentMethodManager implements PaymentMethodService{
 
     private PaymentMethodRepository paymentMethodRepository;
+    private ModelMapperService modelMapperService;
 
     public List<PaymenMethod> getAll(){
         return paymentMethodRepository.findAll();
@@ -28,13 +30,13 @@ public class PaymentMethodManager implements PaymentMethodService{
 
     @Override
     public AddPaymentMethodResponse addPaymentMethod(AddPaymentMethodRequest addPaymentMethodRequest) {
-        PaymenMethod paymentMethod = new PaymenMethod();
-        paymentMethod.setName(addPaymentMethodRequest.getName());
+        PaymenMethod paymentMethod=modelMapperService.getMapper().map(addPaymentMethodRequest,PaymenMethod.class);
 
         PaymenMethod savedPaymentMethod=paymentMethodRepository.save(paymentMethod);
 
         AddPaymentMethodResponse response =
-                new AddPaymentMethodResponse(savedPaymentMethod.getId(),savedPaymentMethod.getName());
+                modelMapperService.getMapper().map(savedPaymentMethod,AddPaymentMethodResponse.class);
+
         return response;
     }
 

@@ -3,21 +3,23 @@ package com.etiya.ecommercedemopair2.business.concretes;
 import com.etiya.ecommercedemopair2.business.abstracts.CategoryService;
 import com.etiya.ecommercedemopair2.business.dtos.request.category.AddCategoryRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.category.AddCategoryResponse;
+import com.etiya.ecommercedemopair2.core.util.mapping.ModelMapperService;
 import com.etiya.ecommercedemopair2.entities.concretes.Category;
 import com.etiya.ecommercedemopair2.repository.abstracts.CategoryRepository;
+import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class CategoryManager implements CategoryService {
     private CategoryRepository categoryRepository;
+    private ModelMapperService modelMapperService;
 
-    @Autowired
-    CategoryManager(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
+
 
     @Override
     public List<Category> getAll() {
@@ -48,19 +50,20 @@ public class CategoryManager implements CategoryService {
     public AddCategoryResponse addCategory(AddCategoryRequest addCategoryRequest) {
 
         //MAPPING=> Auto mapper
-        Category category = new Category();
 
-        categoryCanNotExistWithSameName(addCategoryRequest.getName());
-
-        category.setName(addCategoryRequest.getName());
+        //Manual mapper
+    //        Category category = new Category();
+    //        category.setName(addCategoryRequest.getName());
         //
+        Category category =modelMapperService.getMapper().map(addCategoryRequest,Category.class);
+        categoryCanNotExistWithSameName(addCategoryRequest.getName());
         Category savedCategory = categoryRepository.save(category);
 
         //MAPPING=> Category = addcategoryresponse
         AddCategoryResponse response =
-                new AddCategoryResponse(savedCategory.getId(), savedCategory.getName());
-
+                modelMapperService.getMapper().map(savedCategory,AddCategoryResponse.class);
         return response;
+        //
     }
     private void categoryCanNotExistWithSameName(String name){
 

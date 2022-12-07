@@ -11,6 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AddCityRequest {
     private String city_name;
-    private int district_id;
+    private int districtId;
 
 }

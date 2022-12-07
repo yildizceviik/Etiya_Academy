@@ -4,6 +4,7 @@ import com.etiya.ecommercedemopair2.business.abstracts.CityService;
 import com.etiya.ecommercedemopair2.business.abstracts.DistrictService;
 import com.etiya.ecommercedemopair2.business.dtos.request.city.AddCityRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.city.AddCityResponse;
+import com.etiya.ecommercedemopair2.core.util.mapping.ModelMapperService;
 import com.etiya.ecommercedemopair2.entities.concretes.City;
 import com.etiya.ecommercedemopair2.entities.concretes.District;
 import com.etiya.ecommercedemopair2.repository.abstracts.CityRepository;
@@ -17,18 +18,14 @@ public class CityManager implements CityService {
 
     private CityRepository cityRepository;
     private DistrictService districtService;
+    private ModelMapperService modelMapperService;
     @Override
     public AddCityResponse addCity(AddCityRequest addCityRequest) {
-        City city = new City();
-        city.setCity_name(addCityRequest.getCity_name());
-        District district=
-                districtService.getById(addCityRequest.getDistrict_id());
-
-        city.setDistrict(district);
+        City city=modelMapperService.getMapper().map(addCityRequest,City.class);
         City savedCity = cityRepository.save(city);
 
         AddCityResponse response=
-                new AddCityResponse(savedCity.getId(),savedCity.getCity_name(),savedCity.getDistrict().getId());
+                modelMapperService.getMapper().map(savedCity,AddCityResponse.class);
         return response;
     }
 

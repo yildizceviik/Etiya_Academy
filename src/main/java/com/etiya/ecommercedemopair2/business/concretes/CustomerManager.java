@@ -5,6 +5,7 @@ import com.etiya.ecommercedemopair2.business.abstracts.RoleService;
 import com.etiya.ecommercedemopair2.business.abstracts.UserService;
 import com.etiya.ecommercedemopair2.business.dtos.request.customer.AddCustomerRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.customer.AddCustomerResponse;
+import com.etiya.ecommercedemopair2.core.util.mapping.ModelMapperService;
 import com.etiya.ecommercedemopair2.entities.concretes.Customer;
 import com.etiya.ecommercedemopair2.entities.concretes.Role;
 import com.etiya.ecommercedemopair2.entities.concretes.User;
@@ -19,21 +20,15 @@ public class CustomerManager implements CustomerService {
 
     private RoleService roleService;
     private UserService userService;
+    private ModelMapperService modelMapperService;
     @Override
     public AddCustomerResponse addCustomer(AddCustomerRequest addCustomerRequest) {
-        Customer customer=new Customer();
-        customer.setPayment_id(addCustomerRequest.getPayment_id());
-
-        Role role=roleService.getById(addCustomerRequest.getRole_id());
-        customer.setRole(role);
-
-        User user=userService.getById(addCustomerRequest.getUser_id());
-        customer.setUser(user);
+        Customer customer=modelMapperService.getMapper().map(addCustomerRequest,Customer.class);
 
         Customer savedCustomer=customerRepository.save(customer);
 
         AddCustomerResponse response=
-                new AddCustomerResponse(savedCustomer.getId(),savedCustomer.getPayment_id(),savedCustomer.getRole().getId(),savedCustomer.getUser().getId());
+                modelMapperService.getMapper().map(savedCustomer,AddCustomerResponse.class);
         return response;
     }
 

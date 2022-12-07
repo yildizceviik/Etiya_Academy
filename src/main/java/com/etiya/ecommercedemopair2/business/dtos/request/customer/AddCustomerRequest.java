@@ -11,6 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AddCustomerRequest {
     private int payment_id;
-    private int role_id;
-    private int user_id;
+    private int roleId;
+    private int userId;
 }

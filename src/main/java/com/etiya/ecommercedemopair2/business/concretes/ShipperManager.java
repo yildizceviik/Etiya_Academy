@@ -4,6 +4,7 @@ import com.etiya.ecommercedemopair2.business.abstracts.RoleService;
 import com.etiya.ecommercedemopair2.business.abstracts.ShipperService;
 import com.etiya.ecommercedemopair2.business.dtos.request.shipper.AddShipperRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.shipper.AddShipperResponse;
+import com.etiya.ecommercedemopair2.core.util.mapping.ModelMapperService;
 import com.etiya.ecommercedemopair2.entities.concretes.Role;
 import com.etiya.ecommercedemopair2.entities.concretes.Shipper;
 import com.etiya.ecommercedemopair2.repository.abstracts.ShipperRepository;
@@ -18,21 +19,16 @@ public class ShipperManager implements ShipperService {
     private ShipperRepository shipperRepository;
 
     private RoleService roleService;
+    private ModelMapperService modelMapperService;
 
     @Override
     public AddShipperResponse addShipper(AddShipperRequest addShipperRequest) {
-        Shipper shipper = new Shipper();
-
-        shipper.setCompany_name(addShipperRequest.getCompany_name());
-        shipper.setPhone_number(addShipperRequest.getPhone_number());
-        Role role = roleService.getById(addShipperRequest.getRole_id());
-        shipper.setRole(role);
+        Shipper shipper=modelMapperService.getMapper().map(addShipperRequest,Shipper.class);
 
         Shipper savedShipper = shipperRepository.save(shipper);
 
         AddShipperResponse response =
-                new AddShipperResponse(savedShipper.getId(), savedShipper.getCompany_name(), savedShipper.getPhone_number(),savedShipper.getRole().getId());
-
+                modelMapperService.getMapper().map(savedShipper,AddShipperResponse.class);
         return response;
     }
 

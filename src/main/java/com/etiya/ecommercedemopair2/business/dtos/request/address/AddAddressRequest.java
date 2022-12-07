@@ -18,5 +18,5 @@ public class AddAddressRequest {
     @NotBlank
     private String title;
     @Min(value=1,message = "country_id en az 1 olmalıdır.")
-    private int country_id;
+    private int countryId;
 }

@@ -11,6 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AddSalesmanRequest {
     private String company_name;
-    private int role_id;
-    private int user_id;
+    private int roleId;
+    private int userId;
 }

@@ -4,6 +4,7 @@ import com.etiya.ecommercedemopair2.business.abstracts.AddressService;
 import com.etiya.ecommercedemopair2.business.abstracts.UserService;
 import com.etiya.ecommercedemopair2.business.dtos.request.user.AddUserRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.user.AddUserResponse;
+import com.etiya.ecommercedemopair2.core.util.mapping.ModelMapperService;
 import com.etiya.ecommercedemopair2.entities.concretes.Address;
 import com.etiya.ecommercedemopair2.entities.concretes.User;
 import com.etiya.ecommercedemopair2.repository.abstracts.AddressRepository;
@@ -25,6 +26,7 @@ public class UserManager implements UserService {
     private AddressRepository addressRepository;
     @Autowired
     private AddressService addressService;
+    private ModelMapperService modelMapperService;
 
     @Override
     public List<User> getAll() {
@@ -48,23 +50,12 @@ public class UserManager implements UserService {
 
     @Override
     public AddUserResponse addUser(AddUserRequest addUserRequest) {
-        User user = new User();
-
-        user.setFirst_name(addUserRequest.getFirst_name());
-        user.setLast_name(addUserRequest.getLast_name());
-        user.setEmail(addUserRequest.getEmail());
-        user.setPhone_number(addUserRequest.getPhone_number());
-        user.setBirth_date(addUserRequest.getBirth_date());
-        user.setPassword(addUserRequest.getPassword());
-
-        Address address=addressService.getById(addUserRequest.getAddress_id());
-        user.setAddress(address);
+        User user=modelMapperService.getMapper().map(addUserRequest,User.class);
 
         User savedUser = userRepository.save(user);
 
         AddUserResponse response =
-                new AddUserResponse(savedUser.getId(),savedUser.getFirst_name(),savedUser.getLast_name(),
-                        savedUser.getPhone_number(), savedUser.getEmail(),savedUser.getPassword(),savedUser.getAddress().getId(),savedUser.getBirth_date());
+                modelMapperService.getMapper().map(savedUser,AddUserResponse.class);
         return response;
     }
 

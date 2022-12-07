@@ -4,10 +4,12 @@ import com.etiya.ecommercedemopair2.business.abstracts.AddressService;
 import com.etiya.ecommercedemopair2.business.abstracts.CountryService;
 import com.etiya.ecommercedemopair2.business.dtos.request.address.AddAddressRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.address.AddAddressResponse;
+import com.etiya.ecommercedemopair2.core.util.mapping.ModelMapperService;
 import com.etiya.ecommercedemopair2.entities.concretes.Address;
 import com.etiya.ecommercedemopair2.entities.concretes.Country;
 import com.etiya.ecommercedemopair2.repository.abstracts.AddressRepository;
 import lombok.AllArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,19 +18,17 @@ public class AddressManager implements AddressService {
 
     private AddressRepository addressRepository;
     private CountryService countryService;
+    private ModelMapperService modelMapperService;
 
     @Override
     public AddAddressResponse addAddress(AddAddressRequest addAddressRequest) {
-        Address address = new Address();
-        address.setTitle(addAddressRequest.getTitle());
-        Country country =countryService.getById(addAddressRequest.getCountry_id());
 
+        Address address=modelMapperService.getMapper().map(addAddressRequest,Address.class);
 
-        address.setCountry(country);
         Address savedAddress=addressRepository.save(address);
 
         AddAddressResponse response=
-                new AddAddressResponse(savedAddress.getId(),savedAddress.getTitle(),savedAddress.getCountry().getId());
+                modelMapperService.getMapper().map(savedAddress,AddAddressResponse.class);
         return response;
     }
 

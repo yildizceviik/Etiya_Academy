@@ -18,7 +18,7 @@ public class AddUserRequest {
     private String phone_number;
     private String email;
     private String password;
-    private int address_id;
+    private int addressId;
     private Date birth_date;
 
 }
