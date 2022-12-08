@@ -1,6 +1,7 @@
 package com.etiya.ecommercedemopair2.api.controllers;
 
 import com.etiya.ecommercedemopair2.business.abstracts.DistrictService;
+import com.etiya.ecommercedemopair2.business.constants.Paths;
 import com.etiya.ecommercedemopair2.business.dtos.request.district.AddDistrictRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.district.AddDistrictResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
-@RequestMapping("/api/districts")
+@RequestMapping(Paths.apiPrefix+"districts")
 public class DistrictController {
     private DistrictService districtService;
 
@@ -22,7 +25,7 @@ public class DistrictController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<AddDistrictResponse> addDistrict(@RequestBody AddDistrictRequest addDistrictRequest){
+    public ResponseEntity<AddDistrictResponse> addDistrict(@RequestBody @Valid AddDistrictRequest addDistrictRequest){
         return new ResponseEntity<AddDistrictResponse>(districtService.addDistrict(addDistrictRequest), HttpStatus.CREATED);
     }
 }

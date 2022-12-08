@@ -1,6 +1,7 @@
 package com.etiya.ecommercedemopair2.business.concretes;
 
 import com.etiya.ecommercedemopair2.business.abstracts.CategoryService;
+import com.etiya.ecommercedemopair2.business.constants.Messages;
 import com.etiya.ecommercedemopair2.business.dtos.request.category.AddCategoryRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.category.AddCategoryResponse;
 import com.etiya.ecommercedemopair2.core.util.mapping.ModelMapperService;
@@ -70,7 +71,7 @@ public class CategoryManager implements CategoryService {
         boolean isExists = categoryRepository.existsCategoryByName(name);
         if(isExists) // Veritabanımda bu isimde bir kategori mevcut!!
 
-            throw new RuntimeException("Bu isimle bir kategori zaten mevcut!");
+            throw new RuntimeException(Messages.Category.CategoryExistWithSameName);
     }
 
 }

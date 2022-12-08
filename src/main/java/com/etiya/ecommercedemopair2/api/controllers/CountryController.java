@@ -1,6 +1,7 @@
 package com.etiya.ecommercedemopair2.api.controllers;
 
 import com.etiya.ecommercedemopair2.business.abstracts.CountryService;
+import com.etiya.ecommercedemopair2.business.constants.Paths;
 import com.etiya.ecommercedemopair2.business.dtos.request.country.AddCountryRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.country.AddCountryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
-@RequestMapping("/api/countries")
+@RequestMapping(Paths.apiPrefix+"countries")
 public class CountryController {
     private CountryService countryService;
 
@@ -22,7 +25,7 @@ public class CountryController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<AddCountryResponse> addCountry(@RequestBody AddCountryRequest addCountryRequest){
+    public ResponseEntity<AddCountryResponse> addCountry(@RequestBody @Valid AddCountryRequest addCountryRequest){
         return new ResponseEntity<AddCountryResponse>(countryService.addCountry(addCountryRequest), HttpStatus.CREATED);
     }
 }

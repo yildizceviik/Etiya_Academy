@@ -1,6 +1,7 @@
 package com.etiya.ecommercedemopair2.api.controllers;
 
 import com.etiya.ecommercedemopair2.business.abstracts.PaymentMethodService;
+import com.etiya.ecommercedemopair2.business.constants.Paths;
 import com.etiya.ecommercedemopair2.business.dtos.request.paymentmethod.AddPaymentMethodRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.paymentmethod.AddPaymentMethodResponse;
 
@@ -12,10 +13,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/PaymentMethods")
+@RequestMapping(Paths.apiPrefix+"PaymentMethods")
 public class PaymentMethodsController {
 
     private PaymentMethodService paymentMethodService;
@@ -31,7 +33,7 @@ public class PaymentMethodsController {
    }
 
     @PostMapping("/add")
-    public ResponseEntity<AddPaymentMethodResponse> addPaymentMethod(@RequestBody AddPaymentMethodRequest addPaymentMethodRequest){
+    public ResponseEntity<AddPaymentMethodResponse> addPaymentMethod(@RequestBody @Valid AddPaymentMethodRequest addPaymentMethodRequest){
         return new ResponseEntity<AddPaymentMethodResponse>(paymentMethodService.addPaymentMethod(addPaymentMethodRequest), HttpStatus.CREATED);
     }
 }

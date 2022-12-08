@@ -1,6 +1,7 @@
 package com.etiya.ecommercedemopair2.api.controllers;
 
 import com.etiya.ecommercedemopair2.business.abstracts.OrderService;
+import com.etiya.ecommercedemopair2.business.constants.Paths;
 import com.etiya.ecommercedemopair2.business.dtos.request.order.AddOrderRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.order.AddOrderResponse;
 import com.etiya.ecommercedemopair2.entities.concretes.Order;
@@ -12,10 +13,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/orders")
+@RequestMapping(Paths.apiPrefix+"orders")
 public class OrderController {
 
     private OrderService orderService;
@@ -35,7 +37,7 @@ public class OrderController {
 //    }
 
    @PostMapping("/add")
-    public ResponseEntity<AddOrderResponse> addOrder(@RequestBody AddOrderRequest addOrderRequest){
+    public ResponseEntity<AddOrderResponse> addOrder(@RequestBody @Valid AddOrderRequest addOrderRequest){
        return new ResponseEntity<>(orderService.addOrder(addOrderRequest), HttpStatus.CREATED);
     }
 }

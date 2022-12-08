@@ -1,6 +1,7 @@
 package com.etiya.ecommercedemopair2.api.controllers;
 
 import com.etiya.ecommercedemopair2.business.abstracts.AddressService;
+import com.etiya.ecommercedemopair2.business.constants.Paths;
 import com.etiya.ecommercedemopair2.business.dtos.request.address.AddAddressRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.address.AddAddressResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/address")
+@RequestMapping(Paths.apiPrefix+"address")
 public class AddressController {
     private AddressService addressService;
 

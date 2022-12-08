@@ -1,6 +1,7 @@
 package com.etiya.ecommercedemopair2.api.controllers;
 
 import com.etiya.ecommercedemopair2.business.abstracts.CityService;
+import com.etiya.ecommercedemopair2.business.constants.Paths;
 import com.etiya.ecommercedemopair2.business.dtos.request.city.AddCityRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.city.AddCityResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
-@RequestMapping("/api/cities")
+@RequestMapping(Paths.apiPrefix+"cities")
 public class CityController {
     private CityService cityService;
 
@@ -22,7 +25,7 @@ public class CityController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<AddCityResponse> addCity(@RequestBody AddCityRequest addCityRequest){
+    public ResponseEntity<AddCityResponse> addCity(@RequestBody @Valid AddCityRequest addCityRequest){
         return new ResponseEntity<AddCityResponse>(cityService.addCity(addCityRequest), HttpStatus.CREATED);
     }
 }

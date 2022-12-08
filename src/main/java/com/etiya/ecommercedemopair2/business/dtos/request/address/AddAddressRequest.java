@@ -1,5 +1,6 @@
 package com.etiya.ecommercedemopair2.business.dtos.request.address;
 
+import com.etiya.ecommercedemopair2.business.constants.Messages;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,9 +15,9 @@ import javax.validation.constraints.NotNull;
 @Setter
 @NoArgsConstructor
 public class AddAddressRequest {
-    @NotNull
-    @NotBlank
+    @NotNull(message = Messages.Name.NameFieldCantBeEmpty)
+    @NotBlank(message = Messages.Name.NameFieldCantBeEmpty)
     private String title;
-    @Min(value=1,message = "country_id en az 1 olmalıdır.")
+    @Min(value=1,message = "country_id "+Messages.Id.IdFieldNeedsToBeMinOne)
     private int countryId;
 }

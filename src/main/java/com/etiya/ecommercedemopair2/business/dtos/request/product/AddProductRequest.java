@@ -1,5 +1,6 @@
 package com.etiya.ecommercedemopair2.business.dtos.request.product;
 
+import com.etiya.ecommercedemopair2.business.constants.Messages;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,17 +16,19 @@ import javax.validation.constraints.Size;
 @Setter
 @NoArgsConstructor
 public class AddProductRequest {
-    @NotNull(message = "İsim alanı boş bırakılamaz")
-    @NotBlank
+    @NotNull(message = Messages.Name.NameFieldCantBeEmpty)
+    @NotBlank(message = Messages.Name.NameFieldCantBeEmpty)
     @Size(min = 3, max = 50)
     private String name;
     @Min(value = 1,message = "Ürün fiyatı en az 1 birim olmalıdır.")
     private double unit_price;
+
     @Min(value = 0,message = "Stok sayısı en az 0 olmalıdır.")
     private int stock;
-    @Min(value = 0,message = "Id sıfırdan küçük olamaz.")
 
+    @Min(value=1,message = "category_id "+Messages.Id.IdFieldNeedsToBeMinOne)
     private int categoryId;
+    @Min(value=1,message = "color_id "+Messages.Id.IdFieldNeedsToBeMinOne)
     private int colorId;
     private int sale_count;
 }
