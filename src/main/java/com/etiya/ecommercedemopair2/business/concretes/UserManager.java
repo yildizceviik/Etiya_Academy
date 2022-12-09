@@ -26,6 +26,7 @@ public class UserManager implements UserService {
     private AddressRepository addressRepository;
     @Autowired
     private AddressService addressService;
+    @Autowired
     private ModelMapperService modelMapperService;
 
     @Override

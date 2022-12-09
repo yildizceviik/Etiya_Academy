@@ -11,9 +11,9 @@ import javax.validation.constraints.Min;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddOrderDetailsRequest {
-    @Min(value=1,message = "orderId "+ Messages.Id.IdFieldNeedsToBeMinOne)
+    @Min(value=1,message = "orderId "+ Messages.Common.IdFieldNeedsToBeMinOne)
     private int orderId;
-    @Min(value=1,message = "productId "+Messages.Id.IdFieldNeedsToBeMinOne)
+    @Min(value=1,message = "productId "+Messages.Common.IdFieldNeedsToBeMinOne)
     private int productId;
     private double total;
     private String coupon;

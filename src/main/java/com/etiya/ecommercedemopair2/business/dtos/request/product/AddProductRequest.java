@@ -16,8 +16,8 @@ import javax.validation.constraints.Size;
 @Setter
 @NoArgsConstructor
 public class AddProductRequest {
-    @NotNull(message = Messages.Name.NameFieldCantBeEmpty)
-    @NotBlank(message = Messages.Name.NameFieldCantBeEmpty)
+    @NotNull(message = Messages.Common.NameFieldCantBeEmpty)
+    @NotBlank(message = Messages.Common.NameFieldCantBeEmpty)
     @Size(min = 3, max = 50)
     private String name;
     @Min(value = 1,message = "Ürün fiyatı en az 1 birim olmalıdır.")
@@ -26,9 +26,9 @@ public class AddProductRequest {
     @Min(value = 0,message = "Stok sayısı en az 0 olmalıdır.")
     private int stock;
 
-    @Min(value=1,message = "category_id "+Messages.Id.IdFieldNeedsToBeMinOne)
+    @Min(value=1,message = "category_id "+Messages.Common.IdFieldNeedsToBeMinOne)
     private int categoryId;
-    @Min(value=1,message = "color_id "+Messages.Id.IdFieldNeedsToBeMinOne)
+    @Min(value=1,message = "color_id "+Messages.Common.IdFieldNeedsToBeMinOne)
     private int colorId;
     private int sale_count;
 }

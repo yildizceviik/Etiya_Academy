@@ -15,9 +15,9 @@ import javax.validation.constraints.NotNull;
 @Setter
 @NoArgsConstructor
 public class AddAddressRequest {
-    @NotNull(message = Messages.Name.NameFieldCantBeEmpty)
-    @NotBlank(message = Messages.Name.NameFieldCantBeEmpty)
+    @NotNull(message = Messages.Common.NameFieldCantBeEmpty)
+    @NotBlank(message = Messages.Common.NameFieldCantBeEmpty)
     private String title;
-    @Min(value=1,message = "country_id "+Messages.Id.IdFieldNeedsToBeMinOne)
-    private int countryId;
+    @Min(value=1,message = "district_id "+Messages.Common.IdFieldNeedsToBeMinOne)
+    private int districtId;
 }

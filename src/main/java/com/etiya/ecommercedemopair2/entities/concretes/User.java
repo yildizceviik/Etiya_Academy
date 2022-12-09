@@ -40,10 +40,10 @@ public class User {
     @Column(name = "birth_date")
     private Date birth_date;
 
-    @ManyToOne
-    @JoinColumn(name = "address_id")
-    @JsonIgnoreProperties("address")
-    private Address address;
+
+    @OneToMany(mappedBy = "id")
+    @JsonIgnoreProperties("address_id")
+    private List<Address> address;
 
     @OneToMany(mappedBy = "id")
     @JsonIgnoreProperties("id")

@@ -12,6 +12,6 @@ import lombok.Setter;
 public class AddAddressResponse {
     private int id;
     private String title;
-    private int country_id;
+    private int district_id;
 
 }

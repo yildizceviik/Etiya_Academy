@@ -15,11 +15,11 @@ import javax.validation.constraints.NotNull;
 @Setter
 @NoArgsConstructor
 public class AddShipperRequest {
-    @NotNull(message = Messages.Name.NameFieldCantBeEmpty)
-    @NotBlank(message = Messages.Name.NameFieldCantBeEmpty)
+    @NotNull(message = Messages.Common.NameFieldCantBeEmpty)
+    @NotBlank(message = Messages.Common.NameFieldCantBeEmpty)
     private String company_name;
     @NotNull(message = "Telefon numarası boş bırakılamaz!")
     private String phone_number;
-    @Min(value=1,message = "role_id "+Messages.Id.IdFieldNeedsToBeMinOne)
+    @Min(value=1,message = "role_id "+Messages.Common.IdFieldNeedsToBeMinOne)
     private int roleId;
 }

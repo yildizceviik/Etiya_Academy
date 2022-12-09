@@ -13,10 +13,10 @@ import javax.validation.constraints.Min;
 @Setter
 @NoArgsConstructor
 public class AddCustomerRequest {
-    @Min(value=1,message = "payment_id "+ Messages.Id.IdFieldNeedsToBeMinOne)
+    @Min(value=1,message = "payment_id "+ Messages.Common.IdFieldNeedsToBeMinOne)
     private int payment_id;
-    @Min(value=1,message = "role_id "+Messages.Id.IdFieldNeedsToBeMinOne)
+    @Min(value=1,message = "role_id "+Messages.Common.IdFieldNeedsToBeMinOne)
     private int roleId;
-    @Min(value=1,message = "user_id "+Messages.Id.IdFieldNeedsToBeMinOne)
+    @Min(value=1,message = "user_id "+Messages.Common.IdFieldNeedsToBeMinOne)
     private int userId;
 }

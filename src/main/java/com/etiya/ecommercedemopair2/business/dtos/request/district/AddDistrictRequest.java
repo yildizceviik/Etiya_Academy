@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -14,7 +15,10 @@ import javax.validation.constraints.NotNull;
 @Setter
 @NoArgsConstructor
 public class AddDistrictRequest {
-    @NotNull(message = Messages.Name.NameFieldCantBeEmpty)
-    @NotBlank(message = Messages.Name.NameFieldCantBeEmpty)
+    @NotNull(message = Messages.Common.NameFieldCantBeEmpty)
+    @NotBlank(message = Messages.Common.NameFieldCantBeEmpty)
     private String district_name;
+
+    @Min(value = 1,message ="cityId"+ Messages.Common.IdFieldNeedsToBeMinOne)
+    private int cityID;
 }
