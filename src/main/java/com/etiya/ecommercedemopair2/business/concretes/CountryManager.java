@@ -6,6 +6,8 @@ import com.etiya.ecommercedemopair2.business.dtos.request.city.AddCityRequest;
 import com.etiya.ecommercedemopair2.business.dtos.request.country.AddCountryRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.country.AddCountryResponse;
 import com.etiya.ecommercedemopair2.core.util.mapping.ModelMapperService;
+import com.etiya.ecommercedemopair2.core.util.results.DataResult;
+import com.etiya.ecommercedemopair2.core.util.results.SuccessDataResult;
 import com.etiya.ecommercedemopair2.entities.concretes.City;
 import com.etiya.ecommercedemopair2.entities.concretes.Country;
 import com.etiya.ecommercedemopair2.repository.abstracts.CityRepository;
@@ -21,20 +23,22 @@ public class CountryManager implements CountryService {
     private CityService cityService;
     private ModelMapperService modelMapperService;
     @Override
-    public AddCountryResponse addCountry(AddCountryRequest addCountryRequest) {
+    public DataResult<AddCountryResponse> addCountry(AddCountryRequest addCountryRequest) {
         Country country=modelMapperService.getMapper().map(addCountryRequest,Country.class);
 
         Country savedCountry = countryRepository.save(country);
 
         AddCountryResponse response=
                 modelMapperService.getMapper().map(savedCountry,AddCountryResponse.class);
-        return response;
+        return new SuccessDataResult<AddCountryResponse>(response,"Ülke eklendi.");
 
     }
 
     @Override
-    public Country getById(int id) {
-        return this.countryRepository.findById(id).orElseThrow();
+    public DataResult<Country> getById(int id) {
+        return new SuccessDataResult<Country>
+                (this.countryRepository.findById(id).orElseThrow(),"Id'ye göre listelendi.");
+
     }
 
 

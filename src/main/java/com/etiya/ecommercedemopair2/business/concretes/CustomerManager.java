@@ -6,6 +6,8 @@ import com.etiya.ecommercedemopair2.business.abstracts.UserService;
 import com.etiya.ecommercedemopair2.business.dtos.request.customer.AddCustomerRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.customer.AddCustomerResponse;
 import com.etiya.ecommercedemopair2.core.util.mapping.ModelMapperService;
+import com.etiya.ecommercedemopair2.core.util.results.DataResult;
+import com.etiya.ecommercedemopair2.core.util.results.SuccessDataResult;
 import com.etiya.ecommercedemopair2.entities.concretes.Customer;
 import com.etiya.ecommercedemopair2.entities.concretes.Role;
 import com.etiya.ecommercedemopair2.entities.concretes.User;
@@ -22,18 +24,20 @@ public class CustomerManager implements CustomerService {
     private UserService userService;
     private ModelMapperService modelMapperService;
     @Override
-    public AddCustomerResponse addCustomer(AddCustomerRequest addCustomerRequest) {
+    public DataResult<AddCustomerResponse> addCustomer(AddCustomerRequest addCustomerRequest) {
         Customer customer=modelMapperService.getMapper().map(addCustomerRequest,Customer.class);
 
         Customer savedCustomer=customerRepository.save(customer);
 
         AddCustomerResponse response=
                 modelMapperService.getMapper().map(savedCustomer,AddCustomerResponse.class);
-        return response;
+        return new SuccessDataResult<AddCustomerResponse>(response,"Müşteri eklendi.");
     }
 
     @Override
-    public Customer getById(int customer_id) {
-        return customerRepository.findById(customer_id).orElseThrow();
+    public DataResult<Customer> getById(int customer_id) {
+        return new SuccessDataResult<Customer>
+                (customerRepository.findById(customer_id).orElseThrow(),"Id'ye göre listelendi.");
+
     }
 }

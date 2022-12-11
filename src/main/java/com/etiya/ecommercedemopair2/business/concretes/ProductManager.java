@@ -6,15 +6,15 @@ import com.etiya.ecommercedemopair2.business.abstracts.ProductService;
 import com.etiya.ecommercedemopair2.business.dtos.request.product.AddProductRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.product.AddProductResponse;
 import com.etiya.ecommercedemopair2.core.util.mapping.ModelMapperService;
-import com.etiya.ecommercedemopair2.entities.concretes.Category;
-import com.etiya.ecommercedemopair2.entities.concretes.Color;
+import com.etiya.ecommercedemopair2.core.util.results.DataResult;
+import com.etiya.ecommercedemopair2.core.util.results.SuccessDataResult;
 import com.etiya.ecommercedemopair2.entities.concretes.Product;
 import com.etiya.ecommercedemopair2.repository.abstracts.ProductRepository;
 import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -23,45 +23,41 @@ public class ProductManager implements ProductService {
     private ProductRepository productRepository;
     private CategoryService categoryService;
     private ColorService colorService;
-
     private ModelMapperService modelMapperService;
 
     //DEPENDENCY INJECTION
 
-
     @Override
-    public List<Product> getAll() {
-        return productRepository.findAll();
+    public DataResult<List<Product>> getAll() {
+        return new SuccessDataResult<List<Product>>
+                (this.productRepository.findAll(),"Data listelendi.");
     }
 
-    @Override
-    public Product getById(int id) {
-        return productRepository.findById(id).orElseThrow();
-    }
 
     @Override
-    public List<Product> getAllProductsByStockGreaterThanOrderByStockDesc(int stock) {
-        return productRepository.findAllProductsByStockGreaterThanOrderByStockDesc(stock);
+    public DataResult<Product> getById(int id) {
+        return new SuccessDataResult<Product>
+                (this.productRepository.findById(id).orElseThrow());
+
     }
 
-    @Override
-    public Product getByName(String name) {
-        return productRepository.findByName(name);
-    }
+
 
     @Override
-    public AddProductResponse addProduct(AddProductRequest addProductRequest) {
-//        Product product=new Product();
-//        product.setName(addProductRequest.getName());
-//        product.setUnit_price(addProductRequest.getUnit_price());
-//        product.setStock(addProductRequest.getStock());
-//        product.setSale_count(addProductRequest.getSale_count());
-//
-//        Category category =categoryService.getById(addProductRequest.getCategory_id());
-//        product.setCategory(category);
-//
-//        Color color =colorService.getById(addProductRequest.getColor_id());
-//        product.setColor(color);
+    public DataResult<List<Product>> getAllProductsByStockGreaterThanOrderByStockDesc(int stock) {
+        return new SuccessDataResult<List<Product>>
+                (this.productRepository.findAllProductsByStockGreaterThanOrderByStockDesc(stock));
+    }
+
+    public DataResult<List<AddProductResponse>> getProductById (int id){
+        return new SuccessDataResult<List<AddProductResponse>>
+                (this.productRepository.getProductById(id));
+    }
+
+
+
+    @Override
+    public DataResult<AddProductResponse> addProduct(AddProductRequest addProductRequest) {
 
         Product product=modelMapperService.getMapper().map(addProductRequest,Product.class);
 
@@ -69,7 +65,7 @@ public class ProductManager implements ProductService {
 
         AddProductResponse response=
                 modelMapperService.getMapper().map(savedProduct, AddProductResponse.class);
-        return response;
+        return new SuccessDataResult<AddProductResponse>(response,"Ürün eklendi.");
 
     }
 

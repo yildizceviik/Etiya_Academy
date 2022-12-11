@@ -4,6 +4,9 @@ import com.etiya.ecommercedemopair2.business.abstracts.OrderService;
 import com.etiya.ecommercedemopair2.business.constants.Paths;
 import com.etiya.ecommercedemopair2.business.dtos.request.order.AddOrderRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.order.AddOrderResponse;
+import com.etiya.ecommercedemopair2.business.dtos.response.order.AddOrderWithCustomerNameResponse;
+import com.etiya.ecommercedemopair2.core.util.results.DataResult;
+import com.etiya.ecommercedemopair2.core.util.results.SuccessDataResult;
 import com.etiya.ecommercedemopair2.entities.concretes.Order;
 import com.etiya.ecommercedemopair2.entities.concretes.Product;
 import com.etiya.ecommercedemopair2.business.abstracts.OrderService;
@@ -28,16 +31,25 @@ public class OrderController {
     }
 
     @GetMapping("/getAll")
-    public List<Order> getAll(@RequestParam("id") int id ){
+    public DataResult<List<Order>> getAll(@RequestParam("id") int id ){
         return orderService.findAllOrdersOrderByOrder_date(id);
     }
-//    @GetMapping("/getById")
-//    public List<Order> findAllProductsUnitPriceBetween(@RequestParam("id") int id){
-//        return orderService.findAllProductsUnitPriceBetween(id);
-//    }
+
+    @GetMapping("/getById")
+    public DataResult<Order> getByIdPath(@RequestParam("id") int id){
+        return orderService.getById(id);
+    }
+
 
    @PostMapping("/add")
-    public ResponseEntity<AddOrderResponse> addOrder(@RequestBody @Valid AddOrderRequest addOrderRequest){
-       return new ResponseEntity<>(orderService.addOrder(addOrderRequest), HttpStatus.CREATED);
+    public DataResult<AddOrderResponse> addOrder(@RequestBody @Valid AddOrderRequest addOrderRequest){
+       return new DataResult<>(orderService.addOrder(addOrderRequest).getData(),true,"Başarılı");
     }
+
+    @GetMapping("/getorderWithCustomerName")
+    public DataResult<List<AddOrderWithCustomerNameResponse>> orderWithCustomerName(){
+        return new SuccessDataResult<List<AddOrderWithCustomerNameResponse>>(orderService.orderWithCustomerName().getData());
+
+    }
+
 }

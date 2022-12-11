@@ -4,6 +4,7 @@ import com.etiya.ecommercedemopair2.business.abstracts.OrderDetailsService;
 import com.etiya.ecommercedemopair2.business.constants.Paths;
 import com.etiya.ecommercedemopair2.business.dtos.request.orderDetails.AddOrderDetailsRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.orderDetails.AddOrderDetailsResponse;
+import com.etiya.ecommercedemopair2.core.util.results.DataResult;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +22,8 @@ public class OrderDetailsController {
     private OrderDetailsService orderDetailsService;
 
     @PostMapping("/add")
-    public ResponseEntity<AddOrderDetailsResponse> addOrderDetail(@RequestBody @Valid AddOrderDetailsRequest addOrderDetailsRequest){
-        return new ResponseEntity<>(orderDetailsService.addOrderDetails(addOrderDetailsRequest), HttpStatus.CREATED);
+    public DataResult<AddOrderDetailsResponse> addOrderDetail(@RequestBody @Valid AddOrderDetailsRequest addOrderDetailsRequest){
+        return new DataResult<AddOrderDetailsResponse>(orderDetailsService.addOrderDetails(addOrderDetailsRequest).getData(),true,"Başarılı");
     }
 
 }

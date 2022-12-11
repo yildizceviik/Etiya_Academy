@@ -4,6 +4,7 @@ import com.etiya.ecommercedemopair2.business.abstracts.AddressService;
 import com.etiya.ecommercedemopair2.business.constants.Paths;
 import com.etiya.ecommercedemopair2.business.dtos.request.address.AddAddressRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.address.AddAddressResponse;
+import com.etiya.ecommercedemopair2.core.util.results.DataResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class AddressController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<AddAddressResponse> addAddress (@RequestBody @Valid AddAddressRequest addAddressRequest){
-        return new ResponseEntity<AddAddressResponse>(addressService.addAddress(addAddressRequest), HttpStatus.CREATED);
+    public DataResult<AddAddressResponse> addAddress (@RequestBody @Valid AddAddressRequest addAddressRequest){
+        return new DataResult<AddAddressResponse>(addressService.addAddress(addAddressRequest).getData(), true,"Başarılı");
     }
 }

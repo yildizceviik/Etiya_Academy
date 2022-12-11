@@ -5,6 +5,8 @@ import com.etiya.ecommercedemopair2.business.dtos.request.paymentmethod.AddPayme
 import com.etiya.ecommercedemopair2.business.dtos.response.paymentmethod.AddPaymentMethodResponse;
 
 import com.etiya.ecommercedemopair2.core.util.mapping.ModelMapperService;
+import com.etiya.ecommercedemopair2.core.util.results.DataResult;
+import com.etiya.ecommercedemopair2.core.util.results.SuccessDataResult;
 import com.etiya.ecommercedemopair2.entities.concretes.PaymenMethod;
 import com.etiya.ecommercedemopair2.repository.abstracts.PaymentMethodRepository;
 import lombok.AllArgsConstructor;
@@ -19,17 +21,19 @@ public class PaymentMethodManager implements PaymentMethodService{
     private PaymentMethodRepository paymentMethodRepository;
     private ModelMapperService modelMapperService;
 
-    public List<PaymenMethod> getAll(){
-        return paymentMethodRepository.findAll();
+    public DataResult<List<PaymenMethod>> getAll(){
+        return new SuccessDataResult<List<PaymenMethod>>(paymentMethodRepository.findAll(),"Data Listelendi.");
+
     }
 
     @Override
-    public PaymenMethod getById(int id) {
-        return paymentMethodRepository.findById(id).orElseThrow();
+    public DataResult<PaymenMethod> getById(int id) {
+        return new SuccessDataResult<PaymenMethod>(paymentMethodRepository.findById(id).orElseThrow(),"Id'ye göre listelendi.");
+
     }
 
     @Override
-    public AddPaymentMethodResponse addPaymentMethod(AddPaymentMethodRequest addPaymentMethodRequest) {
+    public DataResult<AddPaymentMethodResponse> addPaymentMethod(AddPaymentMethodRequest addPaymentMethodRequest) {
         PaymenMethod paymentMethod=modelMapperService.getMapper().map(addPaymentMethodRequest,PaymenMethod.class);
 
         PaymenMethod savedPaymentMethod=paymentMethodRepository.save(paymentMethod);
@@ -37,7 +41,7 @@ public class PaymentMethodManager implements PaymentMethodService{
         AddPaymentMethodResponse response =
                 modelMapperService.getMapper().map(savedPaymentMethod,AddPaymentMethodResponse.class);
 
-        return response;
+        return new SuccessDataResult<AddPaymentMethodResponse>(response,"Ödeme yöntemi eklendi.");
     }
 
 }

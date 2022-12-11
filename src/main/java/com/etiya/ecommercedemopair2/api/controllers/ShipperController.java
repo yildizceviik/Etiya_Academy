@@ -5,6 +5,7 @@ import com.etiya.ecommercedemopair2.business.constants.Paths;
 import com.etiya.ecommercedemopair2.business.dtos.request.shipper.AddShipperRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.country.AddCountryResponse;
 import com.etiya.ecommercedemopair2.business.dtos.response.shipper.AddShipperResponse;
+import com.etiya.ecommercedemopair2.core.util.results.DataResult;
 import com.etiya.ecommercedemopair2.entities.concretes.Product;
 import com.etiya.ecommercedemopair2.entities.concretes.Shipper;
 import com.etiya.ecommercedemopair2.repository.abstracts.ShipperRepository;
@@ -29,17 +30,17 @@ public class ShipperController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<AddShipperResponse> addShipper(@RequestBody @Valid AddShipperRequest addShipperRequest){
-        return new ResponseEntity<AddShipperResponse>(shipperService.addShipper(addShipperRequest), HttpStatus.CREATED);
+    public DataResult<AddShipperResponse> addShipper(@RequestBody @Valid AddShipperRequest addShipperRequest){
+        return new DataResult<AddShipperResponse>(shipperService.addShipper(addShipperRequest).getData(),true,"Başarılı");
     }
 
     @GetMapping("/getAll")
-    public List<Shipper> getAll(){
+    public DataResult<List<Shipper>> getAll(){
         return shipperService.getAll();
     }
 
     @GetMapping("/getById")
-    public Shipper getByIdPath(@RequestParam("id") int id){
+    public DataResult<Shipper> getById(@RequestParam("id") int id){
         return shipperService.getById(id);
     }
 }

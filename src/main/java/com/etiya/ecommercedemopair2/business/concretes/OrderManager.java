@@ -6,11 +6,11 @@ import com.etiya.ecommercedemopair2.business.abstracts.PaymentMethodService;
 import com.etiya.ecommercedemopair2.business.abstracts.ShipperService;
 import com.etiya.ecommercedemopair2.business.dtos.request.order.AddOrderRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.order.AddOrderResponse;
+import com.etiya.ecommercedemopair2.business.dtos.response.order.AddOrderWithCustomerNameResponse;
 import com.etiya.ecommercedemopair2.core.util.mapping.ModelMapperService;
-import com.etiya.ecommercedemopair2.entities.concretes.Customer;
-import com.etiya.ecommercedemopair2.entities.concretes.Order;
-import com.etiya.ecommercedemopair2.entities.concretes.PaymenMethod;
-import com.etiya.ecommercedemopair2.entities.concretes.Shipper;
+import com.etiya.ecommercedemopair2.core.util.results.DataResult;
+import com.etiya.ecommercedemopair2.core.util.results.SuccessDataResult;
+import com.etiya.ecommercedemopair2.entities.concretes.*;
 import com.etiya.ecommercedemopair2.repository.abstracts.OrderRepositoy;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,25 +26,34 @@ public class OrderManager implements OrderService {
     private CustomerService customerService;
     private ModelMapperService modelMapperService;
     @Override
-    public List<Order> findAllOrdersOrderByOrder_date(int id) {
-        return orderRepositoy.getAllOrdersOrderById(id);
+    public DataResult<List<Order>> findAllOrdersOrderByOrder_date(int id) {
+        return new SuccessDataResult<List<Order>>(orderRepositoy.getAllOrdersOrderById(id));
+
         //return null;
     }
 
     @Override
-    public Order getById(int order_id) {
-        return null;
+    public DataResult<Order> getById(int order_id) {
+
+        return new SuccessDataResult<Order>(this.orderRepositoy.findById(order_id).orElseThrow(),"Id'ye göre listelendi.");
     }
 
+
+
     @Override
-    public AddOrderResponse addOrder(AddOrderRequest addOrderRequest) {
+    public DataResult<AddOrderResponse> addOrder(AddOrderRequest addOrderRequest) {
         Order order=modelMapperService.getMapper().map(addOrderRequest,Order.class);
 
         Order savedOrder = orderRepositoy.save(order);
 
         AddOrderResponse response =
                 modelMapperService.getMapper().map(savedOrder,AddOrderResponse.class);
-        return response;
+        return new SuccessDataResult<AddOrderResponse>(response,"Sipariş Eklendi");
+    }
+
+    @Override
+    public DataResult<List<AddOrderWithCustomerNameResponse>> orderWithCustomerName() {
+        return new SuccessDataResult<List<AddOrderWithCustomerNameResponse>>(this.orderRepositoy.orderWithCustomerName());
     }
 //    public List<Order> findAllProductsUnitPriceBetween(int id){
 //        return orderRepositoy.findAllProductsUnitPriceBetween(id);

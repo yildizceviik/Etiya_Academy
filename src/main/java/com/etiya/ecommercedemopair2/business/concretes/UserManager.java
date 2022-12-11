@@ -5,6 +5,8 @@ import com.etiya.ecommercedemopair2.business.abstracts.UserService;
 import com.etiya.ecommercedemopair2.business.dtos.request.user.AddUserRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.user.AddUserResponse;
 import com.etiya.ecommercedemopair2.core.util.mapping.ModelMapperService;
+import com.etiya.ecommercedemopair2.core.util.results.DataResult;
+import com.etiya.ecommercedemopair2.core.util.results.SuccessDataResult;
 import com.etiya.ecommercedemopair2.entities.concretes.Address;
 import com.etiya.ecommercedemopair2.entities.concretes.User;
 import com.etiya.ecommercedemopair2.repository.abstracts.AddressRepository;
@@ -30,34 +32,37 @@ public class UserManager implements UserService {
     private ModelMapperService modelMapperService;
 
     @Override
-    public List<User> getAll() {
-        return userRepository.findAll();
+    public DataResult<List<User>> getAll() {
+        return new SuccessDataResult<List<User>>(userRepository.findAll(),"Kullanıcılar Listelendi.");
+
     }
 
     @Override
-    public User getById(int id) {
-        return userRepository.findById(id).orElseThrow();
+    public DataResult<User> getById(int id) {
+        return new SuccessDataResult<User>
+                (this.userRepository.findById(id).orElseThrow(),"Id'ye göre listelendi.");
+
     }
 
-    @Override
-    public List<User> getByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
+//    @Override
+//    public List<User> getByEmail(String email) {
+//        return userRepository.findByEmail(email);
+//    }
+//
+//    @Override
+//    public User getByFirst_name(String name) {
+//        return userRepository.findByFirst_name(name);
+//    }
 
     @Override
-    public User getByFirst_name(String name) {
-        return userRepository.findByFirst_name(name);
-    }
-
-    @Override
-    public AddUserResponse addUser(AddUserRequest addUserRequest) {
+    public DataResult<AddUserResponse> addUser(AddUserRequest addUserRequest) {
         User user=modelMapperService.getMapper().map(addUserRequest,User.class);
 
         User savedUser = userRepository.save(user);
 
         AddUserResponse response =
                 modelMapperService.getMapper().map(savedUser,AddUserResponse.class);
-        return response;
+        return new SuccessDataResult<AddUserResponse>(response,"Kullanıcı eklendi.");
     }
 
     private Address checkIfAddressExistsById(int address_id) {

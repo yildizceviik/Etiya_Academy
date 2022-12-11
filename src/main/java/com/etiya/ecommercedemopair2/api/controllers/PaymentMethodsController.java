@@ -6,7 +6,9 @@ import com.etiya.ecommercedemopair2.business.dtos.request.paymentmethod.AddPayme
 import com.etiya.ecommercedemopair2.business.dtos.response.paymentmethod.AddPaymentMethodResponse;
 
 
+import com.etiya.ecommercedemopair2.core.util.results.DataResult;
 import com.etiya.ecommercedemopair2.entities.concretes.PaymenMethod;
+import com.etiya.ecommercedemopair2.entities.concretes.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +25,7 @@ public class PaymentMethodsController {
     private PaymentMethodService paymentMethodService;
 
     @GetMapping("")
-    public List<PaymenMethod> getAll(){
+    public DataResult<List<PaymenMethod>> getAll(){
         return paymentMethodService.getAll();
     }
 
@@ -33,7 +35,12 @@ public class PaymentMethodsController {
    }
 
     @PostMapping("/add")
-    public ResponseEntity<AddPaymentMethodResponse> addPaymentMethod(@RequestBody @Valid AddPaymentMethodRequest addPaymentMethodRequest){
-        return new ResponseEntity<AddPaymentMethodResponse>(paymentMethodService.addPaymentMethod(addPaymentMethodRequest), HttpStatus.CREATED);
+    public DataResult<AddPaymentMethodResponse> addPaymentMethod(@RequestBody @Valid AddPaymentMethodRequest addPaymentMethodRequest){
+        return new DataResult<AddPaymentMethodResponse>(paymentMethodService.addPaymentMethod(addPaymentMethodRequest).getData(),true,"Başarılı");
+    }
+
+    @GetMapping("/getById")
+    public DataResult<PaymenMethod> getByIdPath(@RequestParam("id") int id){
+        return paymentMethodService.getById(id);
     }
 }

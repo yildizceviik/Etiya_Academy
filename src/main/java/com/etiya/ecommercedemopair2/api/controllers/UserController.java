@@ -2,8 +2,12 @@ package com.etiya.ecommercedemopair2.api.controllers;
 
 import com.etiya.ecommercedemopair2.business.abstracts.UserService;
 import com.etiya.ecommercedemopair2.business.constants.Paths;
+import com.etiya.ecommercedemopair2.business.dtos.request.product.AddProductRequest;
 import com.etiya.ecommercedemopair2.business.dtos.request.user.AddUserRequest;
+import com.etiya.ecommercedemopair2.business.dtos.response.product.AddProductResponse;
 import com.etiya.ecommercedemopair2.business.dtos.response.user.AddUserResponse;
+import com.etiya.ecommercedemopair2.core.util.results.DataResult;
+import com.etiya.ecommercedemopair2.entities.concretes.Product;
 import com.etiya.ecommercedemopair2.entities.concretes.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,22 +28,17 @@ public class UserController {
         this.userService=userService;
     }
 
-//    @GetMapping("/getUserAll")
-//    public List<User> getAll(){
-//        return this.userService.getAll();
-//    }
-//
-//    @GetMapping("/getByUserId")
-//    public User getById(@RequestParam int id){
-//        return this.userService.getById(id);
-//    }
-//
-//    @GetMapping("getByFirstName")
-//    public User getByFirstName(@RequestParam("name") String name){
-//        return userService.getByFirst_name(name);
-//    }
+    @GetMapping("/getAll")
+    public DataResult<List<User>> getAll(){
+        return this.userService.getAll();
+    }
+
+    @GetMapping("/getById")
+    public DataResult<User> getById(@PathVariable int id){
+        return this.userService.getById(id);
+    }
     @PostMapping("/add")
-    public ResponseEntity<AddUserResponse> addUser(@RequestBody @Valid AddUserRequest addUserRequest) {
-        return new ResponseEntity<AddUserResponse>(userService.addUser(addUserRequest), HttpStatus.CREATED);
+    public DataResult<AddUserResponse> addUser(@RequestBody @Valid AddUserRequest addUserRequest) {
+        return new DataResult<AddUserResponse>(userService.addUser(addUserRequest).getData(),true,"Başarılı");
     }
 }

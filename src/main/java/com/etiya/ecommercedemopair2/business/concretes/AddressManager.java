@@ -5,6 +5,8 @@ import com.etiya.ecommercedemopair2.business.abstracts.CountryService;
 import com.etiya.ecommercedemopair2.business.dtos.request.address.AddAddressRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.address.AddAddressResponse;
 import com.etiya.ecommercedemopair2.core.util.mapping.ModelMapperService;
+import com.etiya.ecommercedemopair2.core.util.results.DataResult;
+import com.etiya.ecommercedemopair2.core.util.results.SuccessDataResult;
 import com.etiya.ecommercedemopair2.entities.concretes.Address;
 import com.etiya.ecommercedemopair2.entities.concretes.Country;
 import com.etiya.ecommercedemopair2.repository.abstracts.AddressRepository;
@@ -21,7 +23,7 @@ public class AddressManager implements AddressService {
     private ModelMapperService modelMapperService;
 
     @Override
-    public AddAddressResponse addAddress(AddAddressRequest addAddressRequest) {
+    public DataResult<AddAddressResponse> addAddress(AddAddressRequest addAddressRequest) {
 
         Address address=modelMapperService.getMapper().map(addAddressRequest,Address.class);
 
@@ -29,17 +31,20 @@ public class AddressManager implements AddressService {
 
         AddAddressResponse response=
                 modelMapperService.getMapper().map(savedAddress,AddAddressResponse.class);
-        return response;
+        return new SuccessDataResult<AddAddressResponse>(response,"Adres eklendi.");
     }
 
     @Override
-    public Address getById(int address_id) {
+    public DataResult<Address> getById(int address_id) {
         //return addressRepository.findById(address_id).orElseThrow();
-        return checkIfAddressExistsById(address_id);
+        return new SuccessDataResult<Address>
+                (this.checkIfAddressExistsById(address_id).getData(),"Data getirildi.");
+
     }
 
-    private Address checkIfAddressExistsById(int address_id) {
+    private DataResult<Address> checkIfAddressExistsById(int address_id) {
         Address currentAddress = this.addressRepository.findById(address_id).orElseThrow();
-        return currentAddress;
+        return new SuccessDataResult<Address>(currentAddress);
+
     }
 }

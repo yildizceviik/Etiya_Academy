@@ -4,13 +4,10 @@ import com.etiya.ecommercedemopair2.business.abstracts.CountryService;
 import com.etiya.ecommercedemopair2.business.constants.Paths;
 import com.etiya.ecommercedemopair2.business.dtos.request.country.AddCountryRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.country.AddCountryResponse;
+import com.etiya.ecommercedemopair2.core.util.results.DataResult;
+import com.etiya.ecommercedemopair2.entities.concretes.Country;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -25,7 +22,11 @@ public class CountryController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<AddCountryResponse> addCountry(@RequestBody @Valid AddCountryRequest addCountryRequest){
-        return new ResponseEntity<AddCountryResponse>(countryService.addCountry(addCountryRequest), HttpStatus.CREATED);
+    public DataResult<AddCountryResponse> addCountry(@RequestBody @Valid AddCountryRequest addCountryRequest){
+        return new DataResult<AddCountryResponse>(countryService.addCountry(addCountryRequest).getData(),true,"Başarılı");
+    }
+    @GetMapping("/getById")
+    public DataResult<Country> getById(@RequestParam("id") int id){
+        return countryService.getById(id);
     }
 }
