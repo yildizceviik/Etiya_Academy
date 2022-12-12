@@ -12,9 +12,9 @@ import lombok.Setter;
 public class AddProductResponse {
     private int id;
     private String name;
-    private double unit_price;
+    private double unitPrice;
     private int stock;
-    private int category_id;
-    private int color_id;
-    private int sale_count;
+    private int categoryId;
+    private int colorId;
+    private int saleCount;
 }

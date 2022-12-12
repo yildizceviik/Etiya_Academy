@@ -25,12 +25,12 @@ public class SalesmanManager implements SalesmanServise {
 
     @Override
     public DataResult<AddSalesmanResponse> addSalesman(AddSalesmanRequest addSalesmanRequest) {
-        Salesman salesman=modelMapperService.getMapper().map(addSalesmanRequest,Salesman.class);
+        Salesman salesman=modelMapperService.forRequest().map(addSalesmanRequest,Salesman.class);
 
         Salesman savedSalesman=salesmanRepository.save(salesman);
 
         AddSalesmanResponse response=
-                modelMapperService.getMapper().map(savedSalesman,AddSalesmanResponse.class);
+                modelMapperService.forResponse().map(savedSalesman,AddSalesmanResponse.class);
 
         return new SuccessDataResult<AddSalesmanResponse>(response,"Satıcı eklendi.");
     }

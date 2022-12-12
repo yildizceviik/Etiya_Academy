@@ -10,12 +10,12 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User,Integer> {
 
 
-    @Query("Select u from User as u WHERE first_name=:first_name")
-    User findByUserName(String first_name);
+    @Query("Select u from User as u WHERE firstName=:firstName")
+    User findByUserName(String firstName);
 
 
     List<User> findByEmail(String email);
 
-    @Query("Select u from User as u WHERE first_name=:name")
-    User findByFirst_name(String name);
+    @Query("Select u from User as u WHERE firstName=:name")
+    User findByFirstName(String name);
 }

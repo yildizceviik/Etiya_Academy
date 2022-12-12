@@ -11,8 +11,8 @@ import java.sql.Date;
 @NoArgsConstructor
 public class AddOrderDetailsResponse {
     private int id;
-    private int order_id;
-    private int product_id;
+    private int orderId;
+    private int productId;
     private double total;
     private String coupon;
 }

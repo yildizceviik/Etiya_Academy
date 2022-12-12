@@ -24,12 +24,12 @@ public class OrderDetailsManager implements OrderDetailsService {
     private ModelMapperService modelMapperService;
     @Override
     public DataResult<AddOrderDetailsResponse> addOrderDetails(AddOrderDetailsRequest addOrderDetailsRequest) {
-       OrderDetail orderDetail=modelMapperService.getMapper().map(addOrderDetailsRequest,OrderDetail.class);
+       OrderDetail orderDetail=modelMapperService.forRequest().map(addOrderDetailsRequest,OrderDetail.class);
 
         OrderDetail savedOrderDetail = orderDetailsRepository.save(orderDetail);
 
         AddOrderDetailsResponse response=
-                modelMapperService.getMapper().map(savedOrderDetail,AddOrderDetailsResponse.class);
+                modelMapperService.forResponse().map(savedOrderDetail,AddOrderDetailsResponse.class);
         return new SuccessDataResult<AddOrderDetailsResponse>(response,"Sipariş Detayı Eklendi.");
     }
 }

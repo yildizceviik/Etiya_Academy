@@ -7,6 +7,7 @@ import com.etiya.ecommercedemopair2.business.dtos.request.user.AddUserRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.product.AddProductResponse;
 import com.etiya.ecommercedemopair2.business.dtos.response.user.AddUserResponse;
 import com.etiya.ecommercedemopair2.core.util.results.DataResult;
+import com.etiya.ecommercedemopair2.core.util.results.SuccessDataResult;
 import com.etiya.ecommercedemopair2.entities.concretes.Product;
 import com.etiya.ecommercedemopair2.entities.concretes.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +31,14 @@ public class UserController {
 
     @GetMapping("/getAll")
     public DataResult<List<User>> getAll(){
-        return this.userService.getAll();
+        return new SuccessDataResult<List<User>>(this.userService.getAll().getData());
+
     }
 
     @GetMapping("/getById")
     public DataResult<User> getById(@PathVariable int id){
-        return this.userService.getById(id);
+        return new SuccessDataResult<User>(this.userService.getById(id).getData());
+
     }
     @PostMapping("/add")
     public DataResult<AddUserResponse> addUser(@RequestBody @Valid AddUserRequest addUserRequest) {

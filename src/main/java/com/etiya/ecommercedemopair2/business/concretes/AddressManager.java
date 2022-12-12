@@ -25,12 +25,12 @@ public class AddressManager implements AddressService {
     @Override
     public DataResult<AddAddressResponse> addAddress(AddAddressRequest addAddressRequest) {
 
-        Address address=modelMapperService.getMapper().map(addAddressRequest,Address.class);
+        Address address=modelMapperService.forRequest().map(addAddressRequest,Address.class);
 
         Address savedAddress=addressRepository.save(address);
 
         AddAddressResponse response=
-                modelMapperService.getMapper().map(savedAddress,AddAddressResponse.class);
+                modelMapperService.forResponse().map(savedAddress,AddAddressResponse.class);
         return new SuccessDataResult<AddAddressResponse>(response,"Adres eklendi.");
     }
 

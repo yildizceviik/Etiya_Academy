@@ -18,12 +18,12 @@ public class RoleManager implements RoleService {
     private ModelMapperService modelMapperService;
     @Override
     public DataResult<AddRoleResponse> addRole(AddRoleRequest addRoleRequest) {
-        Role role=modelMapperService.getMapper().map(addRoleRequest,Role.class);
+        Role role=modelMapperService.forRequest().map(addRoleRequest,Role.class);
 
         Role savedRole =roleRepository.save(role);
 
         AddRoleResponse response=
-                modelMapperService.getMapper().map(savedRole,AddRoleResponse.class);
+                modelMapperService.forResponse().map(savedRole,AddRoleResponse.class);
         return new SuccessDataResult<AddRoleResponse>(response,"Rol eklendi.");
     }
 

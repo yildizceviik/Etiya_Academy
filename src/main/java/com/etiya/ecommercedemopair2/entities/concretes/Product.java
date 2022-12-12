@@ -25,13 +25,13 @@ public class Product {
     private String name;
 
     @Column(name = "unit_price")
-    private Double unit_price;
+    private Double unitPrice;
 
     @Column(name = "stock")
     private int stock;
 
     @Column(name = "sale_count",nullable = true)
-    private Integer sale_count;
+    private Integer saleCount;
 
     @ManyToOne
     @JoinColumn(name = "category_id")

@@ -15,8 +15,8 @@ import java.util.Date;
 @NoArgsConstructor
 public class AddOrderRequest {
 
-    private Date order_date;
-    private Date ship_date;
+    private Date orderDate;
+    private Date shipDate;
     @Min(value=1,message = "shipper_id "+ Messages.Common.IdFieldNeedsToBeMinOne)
     private int shipperId;
     @Min(value=1,message = "payment_id "+Messages.Common.IdFieldNeedsToBeMinOne)

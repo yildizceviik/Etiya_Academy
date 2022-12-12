@@ -21,7 +21,7 @@ public class AddProductRequest {
     @Size(min = 3, max = 50)
     private String name;
     @Min(value = 1,message = "Ürün fiyatı en az 1 birim olmalıdır.")
-    private double unit_price;
+    private double unitPrice;
 
     @Min(value = 0,message = "Stok sayısı en az 0 olmalıdır.")
     private int stock;
@@ -30,5 +30,5 @@ public class AddProductRequest {
     private int categoryId;
     @Min(value=1,message = "color_id "+Messages.Common.IdFieldNeedsToBeMinOne)
     private int colorId;
-    private int sale_count;
+    private int saleCount;
 }

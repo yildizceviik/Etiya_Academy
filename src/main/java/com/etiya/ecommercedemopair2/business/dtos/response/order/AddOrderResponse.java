@@ -13,9 +13,9 @@ import java.util.Date;
 @NoArgsConstructor
 public class AddOrderResponse {
     private int id;
-    private Date order_date;
-    private Date ship_date;
-    private int shipper_id;
-    private int payment_id;
-    private int customer_id;
+    private Date orderDate;
+    private Date shipDate;
+    private int shipperId;
+    private int paymentId;
+    private int customerId;
 }

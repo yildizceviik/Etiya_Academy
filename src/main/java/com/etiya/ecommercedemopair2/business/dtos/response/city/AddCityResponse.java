@@ -12,5 +12,5 @@ import lombok.Setter;
 public class AddCityResponse {
     private int id;
     private String city_name;
-    private int country_id;
+    private int countryId;
 }

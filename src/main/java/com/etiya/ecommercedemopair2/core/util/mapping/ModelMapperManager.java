@@ -11,13 +11,19 @@ public class ModelMapperManager implements ModelMapperService{
 
     private ModelMapper modelMapper;
 
+
+//Add,Delete and Update
     @Override
-    public ModelMapper getMapper() {
-
-        this.modelMapper.getConfiguration()
-                .setAmbiguityIgnored(true)//birden fazla aynı alana gelirse bunu ignore et
+    public ModelMapper forRequest() {
+        this.modelMapper.getConfiguration().setAmbiguityIgnored(true)
                 .setMatchingStrategy(MatchingStrategies.STANDARD);
-
+        return this.modelMapper;
+    }
+//Get,GetAll
+    @Override
+    public ModelMapper forResponse() {
+        this.modelMapper.getConfiguration().setAmbiguityIgnored(true)
+                .setMatchingStrategy(MatchingStrategies.LOOSE);
         return this.modelMapper;
     }
 

@@ -42,12 +42,12 @@ public class OrderManager implements OrderService {
 
     @Override
     public DataResult<AddOrderResponse> addOrder(AddOrderRequest addOrderRequest) {
-        Order order=modelMapperService.getMapper().map(addOrderRequest,Order.class);
+        Order order=modelMapperService.forRequest().map(addOrderRequest,Order.class);
 
         Order savedOrder = orderRepositoy.save(order);
 
         AddOrderResponse response =
-                modelMapperService.getMapper().map(savedOrder,AddOrderResponse.class);
+                modelMapperService.forResponse().map(savedOrder,AddOrderResponse.class);
         return new SuccessDataResult<AddOrderResponse>(response,"Sipariş Eklendi");
     }
 

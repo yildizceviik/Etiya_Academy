@@ -24,11 +24,11 @@ public class CityManager implements CityService {
     private ModelMapperService modelMapperService;
     @Override
     public DataResult<AddCityResponse> addCity(AddCityRequest addCityRequest) {
-        City city=modelMapperService.getMapper().map(addCityRequest,City.class);
+        City city=modelMapperService.forRequest().map(addCityRequest,City.class);
         City savedCity = cityRepository.save(city);
 
         AddCityResponse response=
-                modelMapperService.getMapper().map(savedCity,AddCityResponse.class);
+                modelMapperService.forResponse().map(savedCity,AddCityResponse.class);
         return new SuccessDataResult<AddCityResponse>(response,"Şehir eklendi");
     }
 

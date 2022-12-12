@@ -56,12 +56,12 @@ public class UserManager implements UserService {
 
     @Override
     public DataResult<AddUserResponse> addUser(AddUserRequest addUserRequest) {
-        User user=modelMapperService.getMapper().map(addUserRequest,User.class);
+        User user=modelMapperService.forRequest().map(addUserRequest,User.class);
 
         User savedUser = userRepository.save(user);
 
         AddUserResponse response =
-                modelMapperService.getMapper().map(savedUser,AddUserResponse.class);
+                modelMapperService.forResponse().map(savedUser,AddUserResponse.class);
         return new SuccessDataResult<AddUserResponse>(response,"Kullanıcı eklendi.");
     }
 

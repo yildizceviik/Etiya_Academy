@@ -24,12 +24,12 @@ public class CountryManager implements CountryService {
     private ModelMapperService modelMapperService;
     @Override
     public DataResult<AddCountryResponse> addCountry(AddCountryRequest addCountryRequest) {
-        Country country=modelMapperService.getMapper().map(addCountryRequest,Country.class);
+        Country country=modelMapperService.forRequest().map(addCountryRequest,Country.class);
 
         Country savedCountry = countryRepository.save(country);
 
         AddCountryResponse response=
-                modelMapperService.getMapper().map(savedCountry,AddCountryResponse.class);
+                modelMapperService.forResponse().map(savedCountry,AddCountryResponse.class);
         return new SuccessDataResult<AddCountryResponse>(response,"Ülke eklendi.");
 
     }

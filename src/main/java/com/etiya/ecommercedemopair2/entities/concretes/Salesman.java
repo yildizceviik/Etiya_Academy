@@ -23,7 +23,7 @@ public class Salesman {
     private int id;
 
     @Column(name = "company_name")
-    private String company_name;
+    private String companyName;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

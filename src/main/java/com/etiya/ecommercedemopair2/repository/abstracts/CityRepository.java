@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface CityRepository extends JpaRepository<City,Integer> {
     @Query("select new com.etiya.ecommercedemopair2.business.dtos.response.city.GetAllCityResponse" +
-            "(c.id,c.city_name,co.id) from City c inner join c.country co")
+            "(c.id,c.cityName,co.id) from City c inner join c.country co")
     List<GetAllCityResponse> getAllCity();
 
 }

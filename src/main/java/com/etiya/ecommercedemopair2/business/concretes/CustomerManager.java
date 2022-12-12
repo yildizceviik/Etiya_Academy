@@ -25,12 +25,12 @@ public class CustomerManager implements CustomerService {
     private ModelMapperService modelMapperService;
     @Override
     public DataResult<AddCustomerResponse> addCustomer(AddCustomerRequest addCustomerRequest) {
-        Customer customer=modelMapperService.getMapper().map(addCustomerRequest,Customer.class);
+        Customer customer=modelMapperService.forRequest().map(addCustomerRequest,Customer.class);
 
         Customer savedCustomer=customerRepository.save(customer);
 
         AddCustomerResponse response=
-                modelMapperService.getMapper().map(savedCustomer,AddCustomerResponse.class);
+                modelMapperService.forResponse().map(savedCustomer,AddCustomerResponse.class);
         return new SuccessDataResult<AddCustomerResponse>(response,"Müşteri eklendi.");
     }
 

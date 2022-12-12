@@ -11,5 +11,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AddRoleResponse {
     private int id;
-    private String role_name;
+    private String roleName;
 }

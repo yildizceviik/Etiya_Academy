@@ -21,11 +21,11 @@ public class ColorManager implements ColorService {
     @Override
     public DataResult<AddColorResponse> addColor(AddColorRequest addColorRequest) {
 
-        Color color=modelMapperService.getMapper().map(addColorRequest,Color.class);
+        Color color=modelMapperService.forRequest().map(addColorRequest,Color.class);
         Color savedColor =colorRepository.save(color);
 
         AddColorResponse response =
-                modelMapperService.getMapper().map(savedColor,AddColorResponse.class);
+                modelMapperService.forResponse().map(savedColor,AddColorResponse.class);
         return new SuccessDataResult<AddColorResponse>(response,"Renk Eklendi.");
     }
 

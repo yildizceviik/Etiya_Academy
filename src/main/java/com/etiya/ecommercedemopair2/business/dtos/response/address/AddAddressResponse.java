@@ -13,5 +13,6 @@ public class AddAddressResponse {
     private int id;
     private String title;
     private int district_id;
+    private int userId;
 
 }

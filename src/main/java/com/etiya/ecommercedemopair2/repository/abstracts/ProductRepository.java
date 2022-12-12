@@ -18,7 +18,7 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
     Product findByName(String name);
 
     @Query(" select new com.etiya.ecommercedemopair2.business.dtos.response.product.AddProductResponse" +
-            " (p.id,p.name,p.unit_price,p.stock,p.category.id,co.id,p.sale_count) from Product as p inner join p.color as co" +
+            " (p.id,p.name,p.unitPrice,p.stock,p.category.id,co.id,p.saleCount) from Product as p inner join p.color as co" +
             " WHERE p.id= :identity")
     List<AddProductResponse> getProductById(int identity);
 

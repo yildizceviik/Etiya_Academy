@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AddCountryResponse {
     private int id;
-    private String country_name;
+    private String countryName;
 
 
 }

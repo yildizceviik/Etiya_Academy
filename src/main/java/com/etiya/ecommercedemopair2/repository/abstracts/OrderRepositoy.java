@@ -17,7 +17,7 @@ public interface OrderRepositoy extends JpaRepository<Order,Integer> {
 
     List<Order> getAllOrdersOrderById(int id);
 
-    @Query(" Select new com.etiya.ecommercedemopair2.business.dtos.response.order.AddOrderWithCustomerNameResponse(us.first_name,us.last_name,o.id,o.order_date,o.ship_date,o.shipper.id,o.paymentMethod.id,cu.id) from Order as o " +
+    @Query(" Select new com.etiya.ecommercedemopair2.business.dtos.response.order.AddOrderWithCustomerNameResponse(us.firstName,us.lastName,o.id,o.orderDate,o.shipDate,o.shipper.id,o.paymentMethod.id,cu.id) from Order as o " +
             " inner join o.customer as cu" +
             " inner join cu.user as us ORDER BY o.id " )
     List<AddOrderWithCustomerNameResponse> orderWithCustomerName();

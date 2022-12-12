@@ -4,6 +4,7 @@ import com.etiya.ecommercedemopair2.business.abstracts.CategoryService;
 import com.etiya.ecommercedemopair2.business.constants.Messages;
 import com.etiya.ecommercedemopair2.business.dtos.request.category.AddCategoryRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.category.AddCategoryResponse;
+import com.etiya.ecommercedemopair2.core.util.exceptions.BusinessException;
 import com.etiya.ecommercedemopair2.core.util.mapping.ModelMapperService;
 import com.etiya.ecommercedemopair2.core.util.results.DataResult;
 import com.etiya.ecommercedemopair2.core.util.results.SuccessDataResult;
@@ -55,19 +56,13 @@ public class CategoryManager implements CategoryService {
     @Override
     public DataResult<AddCategoryResponse> addCategory(AddCategoryRequest addCategoryRequest) {
 
-        //MAPPING=> Auto mapper
-
-        //Manual mapper
-    //        Category category = new Category();
-    //        category.setName(addCategoryRequest.getName());
-        //
-        Category category =modelMapperService.getMapper().map(addCategoryRequest,Category.class);
+        Category category =modelMapperService.forRequest().map(addCategoryRequest,Category.class);
         categoryCanNotExistWithSameName(addCategoryRequest.getName());
         Category savedCategory = categoryRepository.save(category);
 
         //MAPPING=> Category = addcategoryresponse
         AddCategoryResponse response =
-                modelMapperService.getMapper().map(savedCategory,AddCategoryResponse.class);
+                modelMapperService.forResponse().map(savedCategory,AddCategoryResponse.class);
         return new SuccessDataResult<AddCategoryResponse>(response,"Kategori eklendi.");
         //
     }
@@ -75,8 +70,8 @@ public class CategoryManager implements CategoryService {
 
         boolean isExists = categoryRepository.existsCategoryByName(name);
         if(isExists) // Veritabanımda bu isimde bir kategori mevcut!!
-
-            throw new RuntimeException(Messages.Category.CategoryExistWithSameName);
+        //TODO: Change all business rules to throw BusinessException
+            throw new BusinessException(Messages.Category.CategoryExistWithSameName);
     }
 
 }

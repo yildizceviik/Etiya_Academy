@@ -34,12 +34,12 @@ public class PaymentMethodManager implements PaymentMethodService{
 
     @Override
     public DataResult<AddPaymentMethodResponse> addPaymentMethod(AddPaymentMethodRequest addPaymentMethodRequest) {
-        PaymenMethod paymentMethod=modelMapperService.getMapper().map(addPaymentMethodRequest,PaymenMethod.class);
+        PaymenMethod paymentMethod=modelMapperService.forRequest().map(addPaymentMethodRequest,PaymenMethod.class);
 
         PaymenMethod savedPaymentMethod=paymentMethodRepository.save(paymentMethod);
 
         AddPaymentMethodResponse response =
-                modelMapperService.getMapper().map(savedPaymentMethod,AddPaymentMethodResponse.class);
+                modelMapperService.forResponse().map(savedPaymentMethod,AddPaymentMethodResponse.class);
 
         return new SuccessDataResult<AddPaymentMethodResponse>(response,"Ödeme yöntemi eklendi.");
     }

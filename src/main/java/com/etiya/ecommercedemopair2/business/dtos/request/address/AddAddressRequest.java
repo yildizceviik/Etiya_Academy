@@ -20,4 +20,5 @@ public class AddAddressRequest {
     private String title;
     @Min(value=1,message = "district_id "+Messages.Common.IdFieldNeedsToBeMinOne)
     private int districtId;
+    private int userId;
 }

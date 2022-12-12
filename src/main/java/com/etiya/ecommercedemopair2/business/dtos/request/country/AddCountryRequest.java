@@ -17,6 +17,6 @@ import javax.validation.constraints.NotNull;
 public class AddCountryRequest {
     @NotNull(message = Messages.Common.NameFieldCantBeEmpty)
     @NotBlank(message = Messages.Common.NameFieldCantBeEmpty)
-    private String country_name;
+    private String countryName;
 
 }

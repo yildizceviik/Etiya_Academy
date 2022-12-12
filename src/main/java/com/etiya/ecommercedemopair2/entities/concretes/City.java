@@ -24,16 +24,16 @@ public class City {
     private int id;
 
     @Column(name = "city_name")
-    private String city_name;
+    private String cityName;
 
     //FK
     @ManyToOne
     @JoinColumn(name = "district_id")
-    @JsonIgnoreProperties("city")
+    @JsonIgnore
     private District district;
 
     @OneToMany(mappedBy = "id")
-    @JsonIgnoreProperties("id")
+    @JsonIgnore
     private List<District> districts;
 
     @ManyToOne

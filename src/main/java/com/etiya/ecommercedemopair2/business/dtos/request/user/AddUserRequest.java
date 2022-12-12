@@ -16,10 +16,10 @@ import java.util.Date;
 public class AddUserRequest {
     @NotNull(message = Messages.Common.NameFieldCantBeEmpty)
     @NotBlank(message = Messages.Common.NameFieldCantBeEmpty)
-    private String first_name;
+    private String firstName;
     @NotNull(message = Messages.Common.NameFieldCantBeEmpty)
     @NotBlank(message = Messages.Common.NameFieldCantBeEmpty)
-    private String last_name;
+    private String lastName;
     @NotNull(message = "Telefon numarası boş bırakılamaz!")
     private String phone_number;
     @NotNull(message = "E mail alanı boş bırakılamaz!")
@@ -27,8 +27,7 @@ public class AddUserRequest {
     private String email;
     @Size(min = 8,message = "Şifre alanı en az 8 karakter verilmelidir.")
     private String password;
-    @Min(value=1,message = "address_id "+Messages.Common.IdFieldNeedsToBeMinOne)
-    private int addressId;
-    private Date birth_date;
+
+    private Date birthDate;
 
 }

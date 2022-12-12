@@ -13,12 +13,11 @@ import java.util.Date;
 @NoArgsConstructor
 public class AddUserResponse {
     private int id;
-    private String first_name;
-    private String last_name;
-    private String phone_number;
+    private String firstName;
+    private String lastName;
+    private String phoneNumber;
     private String email;
     private String password;
-    private int address_id;
-    private Date birth_date;
+    private Date birthDate;
 
 }

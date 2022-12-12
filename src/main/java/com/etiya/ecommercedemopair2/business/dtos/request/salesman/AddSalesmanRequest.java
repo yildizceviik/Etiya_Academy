@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 public class AddSalesmanRequest {
     @NotNull(message = Messages.Common.NameFieldCantBeEmpty)
     @NotBlank(message = Messages.Common.NameFieldCantBeEmpty)
-    private String company_name;
+    private String companyName;
     @Min(value=1,message = "role_id "+Messages.Common.IdFieldNeedsToBeMinOne)
     private int roleId;
     @Min(value=1,message = "user_id "+Messages.Common.IdFieldNeedsToBeMinOne)

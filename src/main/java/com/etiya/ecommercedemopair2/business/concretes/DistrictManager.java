@@ -20,11 +20,11 @@ public class DistrictManager implements DistrictService {
     @Override
     public DataResult<AddDistrictResponse> addDistrict(AddDistrictRequest addDistrictRequest) {
 
-        District district =modelMapperService.getMapper().map(addDistrictRequest,District.class);
+        District district =modelMapperService.forRequest().map(addDistrictRequest,District.class);
         District savedDistrict = districtRepository.save(district);
 
         AddDistrictResponse response=
-                modelMapperService.getMapper().map(savedDistrict,AddDistrictResponse.class);
+                modelMapperService.forResponse().map(savedDistrict,AddDistrictResponse.class);
         return new SuccessDataResult<AddDistrictResponse>(response,"İlçe eklendi.");
     }
 

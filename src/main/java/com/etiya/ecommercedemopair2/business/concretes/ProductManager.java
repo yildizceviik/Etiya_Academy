@@ -59,12 +59,12 @@ public class ProductManager implements ProductService {
     @Override
     public DataResult<AddProductResponse> addProduct(AddProductRequest addProductRequest) {
 
-        Product product=modelMapperService.getMapper().map(addProductRequest,Product.class);
+        Product product=modelMapperService.forRequest().map(addProductRequest,Product.class);
 
         Product savedProduct=productRepository.save(product);
 
         AddProductResponse response=
-                modelMapperService.getMapper().map(savedProduct, AddProductResponse.class);
+                modelMapperService.forResponse().map(savedProduct, AddProductResponse.class);
         return new SuccessDataResult<AddProductResponse>(response,"Ürün eklendi.");
 
     }
