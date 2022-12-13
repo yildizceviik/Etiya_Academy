@@ -13,6 +13,8 @@ import com.etiya.ecommercedemopair2.entities.concretes.Country;
 import com.etiya.ecommercedemopair2.repository.abstracts.CityRepository;
 import com.etiya.ecommercedemopair2.repository.abstracts.CountryRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -39,6 +41,11 @@ public class CountryManager implements CountryService {
         return new SuccessDataResult<Country>
                 (this.countryRepository.findById(id).orElseThrow(),"Id'ye göre listelendi.");
 
+    }
+
+    @Override
+    public Page<Country> findAllWithPagination(Pageable pageable) {
+        return countryRepository.findAll(pageable);
     }
 
 

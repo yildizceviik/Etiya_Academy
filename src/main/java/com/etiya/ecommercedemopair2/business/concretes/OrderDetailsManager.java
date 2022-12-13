@@ -13,6 +13,8 @@ import com.etiya.ecommercedemopair2.entities.concretes.OrderDetail;
 import com.etiya.ecommercedemopair2.entities.concretes.Product;
 import com.etiya.ecommercedemopair2.repository.abstracts.OrderDetailsRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -31,5 +33,10 @@ public class OrderDetailsManager implements OrderDetailsService {
         AddOrderDetailsResponse response=
                 modelMapperService.forResponse().map(savedOrderDetail,AddOrderDetailsResponse.class);
         return new SuccessDataResult<AddOrderDetailsResponse>(response,"Sipariş Detayı Eklendi.");
+    }
+
+    @Override
+    public Page<OrderDetail> findAllWithPagination(Pageable pageable) {
+        return orderDetailsRepository.findAll(pageable);
     }
 }

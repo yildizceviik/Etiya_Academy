@@ -12,6 +12,9 @@ import com.etiya.ecommercedemopair2.entities.concretes.Product;
 import com.etiya.ecommercedemopair2.business.abstracts.OrderService;
 import com.etiya.ecommercedemopair2.entities.concretes.Order;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -51,5 +54,11 @@ public class OrderController {
         return new SuccessDataResult<List<AddOrderWithCustomerNameResponse>>(orderService.orderWithCustomerName().getData());
 
     }
+    @GetMapping("/getWithPagination")
+    //RequestParam: page.pageSize
+    public Page<Order> getWithPagination(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize){
+        Pageable pageable = PageRequest.of(page,pageSize);
+        return orderService.findAllWithPagination(pageable);
 
+    }
 }

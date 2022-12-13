@@ -12,6 +12,9 @@ import com.etiya.ecommercedemopair2.repository.abstracts.ShipperRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,5 +45,12 @@ public class ShipperController {
     @GetMapping("/getById")
     public DataResult<Shipper> getById(@RequestParam("id") int id){
         return shipperService.getById(id);
+    }
+    @GetMapping("/getWithPagination")
+    //RequestParam: page.pageSize
+    public Page<Shipper> getWithPagination(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize){
+        Pageable pageable = PageRequest.of(page,pageSize);
+        return shipperService.findAllWithPagination(pageable);
+
     }
 }

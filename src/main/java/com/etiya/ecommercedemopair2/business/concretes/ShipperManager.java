@@ -11,6 +11,8 @@ import com.etiya.ecommercedemopair2.entities.concretes.Role;
 import com.etiya.ecommercedemopair2.entities.concretes.Shipper;
 import com.etiya.ecommercedemopair2.repository.abstracts.ShipperRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,5 +46,10 @@ public class ShipperManager implements ShipperService {
     public DataResult<Shipper> getById(int id) {
         return new SuccessDataResult<Shipper>(shipperRepository.findById(id).orElseThrow(),"Id'ye göre listelendi.");
 
+    }
+
+    @Override
+    public Page<Shipper> findAllWithPagination(Pageable pageable) {
+        return shipperRepository.findAll(pageable);
     }
 }

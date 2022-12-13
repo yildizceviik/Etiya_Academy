@@ -4,6 +4,7 @@ import com.etiya.ecommercedemopair2.business.abstracts.AddressService;
 import com.etiya.ecommercedemopair2.business.abstracts.CountryService;
 import com.etiya.ecommercedemopair2.business.dtos.request.address.AddAddressRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.address.AddAddressResponse;
+import com.etiya.ecommercedemopair2.business.dtos.response.address.ListAddressResponse;
 import com.etiya.ecommercedemopair2.core.util.mapping.ModelMapperService;
 import com.etiya.ecommercedemopair2.core.util.results.DataResult;
 import com.etiya.ecommercedemopair2.core.util.results.SuccessDataResult;
@@ -12,6 +13,8 @@ import com.etiya.ecommercedemopair2.entities.concretes.Country;
 import com.etiya.ecommercedemopair2.repository.abstracts.AddressRepository;
 import lombok.AllArgsConstructor;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -40,6 +43,16 @@ public class AddressManager implements AddressService {
         return new SuccessDataResult<Address>
                 (this.checkIfAddressExistsById(address_id).getData(),"Data getirildi.");
 
+    }
+
+    @Override
+    public Page<Address> findAllWithPagination(Pageable pageable) {
+        return addressRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<ListAddressResponse> findAllWithPaginationDto(Pageable pageable) {
+        return addressRepository.getAllListAddress(pageable);
     }
 
     private DataResult<Address> checkIfAddressExistsById(int address_id) {

@@ -3,12 +3,15 @@ package com.etiya.ecommercedemopair2.business.concretes;
 import com.etiya.ecommercedemopair2.business.abstracts.DistrictService;
 import com.etiya.ecommercedemopair2.business.dtos.request.district.AddDistrictRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.district.AddDistrictResponse;
+import com.etiya.ecommercedemopair2.business.dtos.response.district.ListDistrictResponse;
 import com.etiya.ecommercedemopair2.core.util.mapping.ModelMapperService;
 import com.etiya.ecommercedemopair2.core.util.results.DataResult;
 import com.etiya.ecommercedemopair2.core.util.results.SuccessDataResult;
 import com.etiya.ecommercedemopair2.entities.concretes.District;
 import com.etiya.ecommercedemopair2.repository.abstracts.DistrictRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -33,5 +36,15 @@ public class DistrictManager implements DistrictService {
         return new SuccessDataResult<District>
                 (this.districtRepository.findById(id).orElseThrow(),"Id'ye göre listelendi.");
 
+    }
+
+    @Override
+    public Page<District> findAllWithPagination(Pageable pageable) {
+        return districtRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<ListDistrictResponse> findAllWithPaginationDto(Pageable pageable) {
+        return districtRepository.getAllListDistrict(pageable);
     }
 }

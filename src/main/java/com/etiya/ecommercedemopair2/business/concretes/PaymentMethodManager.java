@@ -10,6 +10,8 @@ import com.etiya.ecommercedemopair2.core.util.results.SuccessDataResult;
 import com.etiya.ecommercedemopair2.entities.concretes.PaymenMethod;
 import com.etiya.ecommercedemopair2.repository.abstracts.PaymentMethodRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,6 +44,11 @@ public class PaymentMethodManager implements PaymentMethodService{
                 modelMapperService.forResponse().map(savedPaymentMethod,AddPaymentMethodResponse.class);
 
         return new SuccessDataResult<AddPaymentMethodResponse>(response,"Ödeme yöntemi eklendi.");
+    }
+
+    @Override
+    public Page<PaymenMethod> findAllWithPagination(Pageable pageable) {
+        return paymentMethodRepository.findAll(pageable);
     }
 
 }

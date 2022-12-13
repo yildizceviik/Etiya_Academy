@@ -5,12 +5,16 @@ import com.etiya.ecommercedemopair2.business.abstracts.ColorService;
 import com.etiya.ecommercedemopair2.business.abstracts.ProductService;
 import com.etiya.ecommercedemopair2.business.dtos.request.product.AddProductRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.product.AddProductResponse;
+import com.etiya.ecommercedemopair2.business.dtos.response.product.ListProductResponse;
 import com.etiya.ecommercedemopair2.core.util.mapping.ModelMapperService;
 import com.etiya.ecommercedemopair2.core.util.results.DataResult;
 import com.etiya.ecommercedemopair2.core.util.results.SuccessDataResult;
 import com.etiya.ecommercedemopair2.entities.concretes.Product;
 import com.etiya.ecommercedemopair2.repository.abstracts.ProductRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -67,6 +71,21 @@ public class ProductManager implements ProductService {
                 modelMapperService.forResponse().map(savedProduct, AddProductResponse.class);
         return new SuccessDataResult<AddProductResponse>(response,"Ürün eklendi.");
 
+    }
+
+    @Override
+    public Page<Product> findAllWithPagination(Pageable pageable) {
+        return productRepository.findAll(pageable);
+    }
+
+    @Override
+    public Slice<Product> findAllWithSlice(Pageable pageable) {
+        return productRepository.getAllWithSlice(pageable);
+    }
+
+    @Override
+    public Page<ListProductResponse> findAllWithPaginationDto(Pageable pageable) {
+        return productRepository.getAllListProducts(pageable);
     }
 
 

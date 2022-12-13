@@ -4,6 +4,7 @@ public class Messages {
 
     public static class Category{
         public static final String CategoryExistWithSameName="Bu isimle bir kategori zaten mevcut!";
+        public static final String CategoryExistsWithSameName = "categoryExistsWithSameName";
     }
 
     public static class Common{

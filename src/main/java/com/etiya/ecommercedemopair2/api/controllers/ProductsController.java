@@ -4,9 +4,14 @@ import com.etiya.ecommercedemopair2.business.abstracts.ProductService;
 import com.etiya.ecommercedemopair2.business.constants.Paths;
 import com.etiya.ecommercedemopair2.business.dtos.request.product.AddProductRequest;
 import com.etiya.ecommercedemopair2.business.dtos.response.product.AddProductResponse;
+import com.etiya.ecommercedemopair2.business.dtos.response.product.ListProductResponse;
 import com.etiya.ecommercedemopair2.core.util.results.DataResult;
 import com.etiya.ecommercedemopair2.entities.concretes.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -53,7 +58,29 @@ public class ProductsController {
         return productService.getAllProductsByStockGreaterThanOrderByStockDesc(stock);
     }
 
+    @GetMapping("/getWithPagination")
+    //RequestParam: page.pageSize
+    public Page<Product> getWithPagination(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize){
+        Pageable pageable = PageRequest.of(page,pageSize);
+        return productService.findAllWithPagination(pageable);
 
+    }
+
+    @GetMapping("/getWithSlice")
+    //RequestParam: page.pageSize
+    public Slice<Product> getWithSlice(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize){
+        Pageable pageable = PageRequest.of(page,pageSize);
+        return productService.findAllWithSlice(pageable);
+
+    }
+
+    @GetMapping("/getWithPaginationDto")
+    // RequestParam => page,pageSize
+    public Page<ListProductResponse>
+    getWithPaginationDto(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize){
+        Pageable pageable = PageRequest.of(page,pageSize);
+        return productService.findAllWithPaginationDto(pageable);
+    }
 
 
 }

@@ -10,6 +10,8 @@ import com.etiya.ecommercedemopair2.entities.concretes.Color;
 import com.etiya.ecommercedemopair2.repository.abstracts.ColorRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -32,5 +34,10 @@ public class ColorManager implements ColorService {
     @Override
     public DataResult<Color> getById(int id) {
         return new SuccessDataResult<Color>(colorRepository.findById(id).orElseThrow(),"Id'ye göre listelendi.");
+    }
+
+    @Override
+    public Page<Color> findAllWithPagination(Pageable pageable) {
+        return colorRepository.findAll(pageable);
     }
 }

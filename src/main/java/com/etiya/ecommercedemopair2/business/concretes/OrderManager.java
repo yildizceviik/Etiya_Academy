@@ -13,6 +13,8 @@ import com.etiya.ecommercedemopair2.core.util.results.SuccessDataResult;
 import com.etiya.ecommercedemopair2.entities.concretes.*;
 import com.etiya.ecommercedemopair2.repository.abstracts.OrderRepositoy;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -54,6 +56,11 @@ public class OrderManager implements OrderService {
     @Override
     public DataResult<List<AddOrderWithCustomerNameResponse>> orderWithCustomerName() {
         return new SuccessDataResult<List<AddOrderWithCustomerNameResponse>>(this.orderRepositoy.orderWithCustomerName());
+    }
+
+    @Override
+    public Page<Order> findAllWithPagination(Pageable pageable) {
+        return orderRepositoy.findAll(pageable);
     }
 //    public List<Order> findAllProductsUnitPriceBetween(int id){
 //        return orderRepositoy.findAllProductsUnitPriceBetween(id);

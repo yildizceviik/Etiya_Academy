@@ -9,6 +9,8 @@ import com.etiya.ecommercedemopair2.core.util.results.SuccessDataResult;
 import com.etiya.ecommercedemopair2.entities.concretes.Role;
 import com.etiya.ecommercedemopair2.repository.abstracts.RoleRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -32,5 +34,10 @@ public class RoleManager implements RoleService {
         return new SuccessDataResult<Role>
                 (this.roleRepository.findById(id).orElseThrow(),"Id'ye göre listelendi.");
 
+    }
+
+    @Override
+    public Page<Role> findAllWithPagination(Pageable pageable) {
+        return roleRepository.findAll(pageable);
     }
 }

@@ -15,6 +15,8 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -63,6 +65,11 @@ public class UserManager implements UserService {
         AddUserResponse response =
                 modelMapperService.forResponse().map(savedUser,AddUserResponse.class);
         return new SuccessDataResult<AddUserResponse>(response,"Kullanıcı eklendi.");
+    }
+
+    @Override
+    public Page<User> findAllWithPagination(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 
     private Address checkIfAddressExistsById(int address_id) {

@@ -13,6 +13,8 @@ import com.etiya.ecommercedemopair2.entities.concretes.Role;
 import com.etiya.ecommercedemopair2.entities.concretes.User;
 import com.etiya.ecommercedemopair2.repository.abstracts.CustomerRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -39,5 +41,10 @@ public class CustomerManager implements CustomerService {
         return new SuccessDataResult<Customer>
                 (customerRepository.findById(customer_id).orElseThrow(),"Id'ye göre listelendi.");
 
+    }
+
+    @Override
+    public Page<Customer> findAllWithPagination(Pageable pageable) {
+        return customerRepository.findAll(pageable);
     }
 }
